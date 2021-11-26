@@ -25,7 +25,6 @@
   <p id="friendship"><b>isFriendship:</b> </p>
   <p id="scanCode"><b>Code:</b> </p>
   <p id="isLoggedIn"><b>isLoggedIn:</b> </p>
-  <p><a href="liff/path/?param=9">Link to Path</a></p>
 
   <button id="btnMsg" onclick="sendMsg()">Send Message</button>
   <button id="btnShare" onclick="shareMsg()">Share Target Picker</button>
@@ -36,6 +35,15 @@
 
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script>
+    async function shareMsg() {
+      await liff.shareTargetPicker([
+        {
+          "type" : "text",
+          "text" : "ShareTargetPicker"
+        }
+      ])
+    }
+
     function logOut() {
       liff.logout()
       window.location.reload()
@@ -71,9 +79,8 @@
       if(liff.getContext().type !== "none"){
         await liff.sendMessages([
           {
-            "type":"sticker",
-            "packageId": "6370",
-            "stickerId": "11088017"
+            "type" : "text",
+            "text" : "send msg"
           }
         ])
         alert("Message sent")
@@ -115,13 +122,13 @@
     async function main() {
       await liff.init({ liffId: "1656639524-loJjd1JV" })
       document.getElementById("isLoggedIn").append(liff.isLoggedIn())
-      if(liff.isLoggedIn()){
+      if(!liff.isLoggedIn()){
+        liff.login()
+      }else{
         getEnvironment()
         getUserProfile()
         getContext()
         getFriendship()
-      }else{
-        liff.login()
       }
     }
     main()
