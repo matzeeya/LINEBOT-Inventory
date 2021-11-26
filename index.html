@@ -42,8 +42,7 @@
     }
 
     function logOut() {
-      liff.logout()
-      window.location.reload()
+      alert("logout")
     }
 
     function closed() {
@@ -77,8 +76,8 @@
         await liff.sendMessages([
           {
             "type":"sticker",
-            "stickerId": "10551377",
-            "packageId": "6136"
+            "packageId": "6370",
+            "stickerId": "11088017"
           }
         ])
         alert("Message sent")
@@ -126,7 +125,7 @@
         getContext()
         getFriendship()
       }else{
-        liff.login({ redirectUri: window.location.href })
+        liff.login()
       }
     }
     main()
