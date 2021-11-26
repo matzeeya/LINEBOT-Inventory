@@ -41,7 +41,8 @@
     async function shareMsg() {
     }
 
-    function logOut() {
+    async function logOut() {
+      const lg = await liff.logOut()
       alert("logout")
     }
 
