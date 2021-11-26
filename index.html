@@ -25,8 +25,6 @@
   <p id="friendship"><b>isFriendship:</b> </p>
   <p id="scanCode"><b>Code:</b> </p>
   <p id="isLoggedIn"><b>isLoggedIn:</b> </p>
-  <p id="universalLink1"><b>Universal Link:</b> </p>
-  <p id="universalLink2"><b>Universal Link with Query params:</b> </p>
   <p><a href="liff/path/?param=9">Link to Path</a></p>
 
   <button id="btnMsg" onclick="sendMsg()">Send Message</button>
@@ -38,9 +36,6 @@
 
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script>
-    async function shareMsg() {
-    }
-
     function logOut() {
       liff.logout()
       window.location.reload()
@@ -73,7 +68,7 @@
     }
 
     async function sendMsg() {
-      if(liff.getContext().type !== "undefined"){
+      if(liff.getContext().type !== "none"){
         await liff.sendMessages([
           {
             "type":"sticker",
@@ -120,7 +115,7 @@
     async function main() {
       await liff.init({ liffId: "1656639524-loJjd1JV" })
       document.getElementById("isLoggedIn").append(liff.isLoggedIn())
-      if(liff.isLoggedIn){
+      if(liff.isLoggedIn()){
         getEnvironment()
         getUserProfile()
         getContext()
