@@ -35,6 +35,15 @@
 
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script>
+    async function shareMsg() {
+      await liff.shareTargetPicker([
+        {
+          "type" : "text",
+          "text" : "ShareTargetPicker"
+        }
+      ])
+    }
+
     function logOut() {
       liff.logout()
       window.location.reload()
@@ -70,9 +79,8 @@
       if(liff.getContext().type !== "none"){
         await liff.sendMessages([
           {
-            "type" : "sticker",
-            "packageId" : "6136",
-            "stickerId": "10551377"
+            "type" : "text",
+            "text" : "test msg"
           }
         ])
         alert("Message sent")
