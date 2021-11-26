@@ -42,7 +42,8 @@
     }
 
     function logOut() {
-      alert("Logout")
+      liff.logout()
+      window.location.reload()
     }
 
     function closed() {
@@ -52,9 +53,6 @@
     async function scanCode() {
       const result = await liff.scanCode()
       document.getElementById("scanCode").append(result.value)
-      /*liff.scanCode().then(result => {
-        document.getElementById("scanCode").append(result.value)
-      });*/
     }
 
     function openWindow() {
@@ -79,8 +77,8 @@
         await liff.sendMessages([
           {
             "type":"sticker",
-            "stickerId": 1,
-            "packageId": 1
+            "stickerId": "10551377",
+            "packageId": "6136"
           }
         ])
         alert("Message sent")
@@ -128,7 +126,7 @@
         getContext()
         getFriendship()
       }else{
-        liff.login()
+        liff.login({ redirectUri: window.location.href })
       }
     }
     main()
