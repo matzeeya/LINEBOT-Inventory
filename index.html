@@ -67,7 +67,7 @@
     }
 
     async function sendMsg() {
-      if(liff.getContext().type == "utou"){
+      if(liff.getContext().type !== "none"){
         await liff.sendMessages([
           {
             "type" : "sticker",
@@ -76,6 +76,8 @@
           }
         ])
         alert("Message sent")
+      }else{
+        alert(liff.getContext().type)
       }
     }
 
