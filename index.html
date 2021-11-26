@@ -67,16 +67,16 @@
     }
 
     function sendMsg() {
-      /*if(liff.getContext().type !== "none"){
-        await liff.sendMessages([
+      if(liff.getContext().type !== "none"){
+        liff.sendMessages([
           {
             "type" : "sticker",
-            "stickerId": 1,
-            "packageId" : 1
+            "packageId" : "6136",
+            "stickerId": "10551377"
           }
-        ])*/
+        ])
         alert("Message sent")
-      //}
+      }
     }
 
     function getContext() {
