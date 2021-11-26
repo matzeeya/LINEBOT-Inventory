@@ -77,8 +77,8 @@
         await liff.sendMessages([
           {
             "type":"sticker",
-            "stickerId": "11088017",
-            "packageId": "6370"
+            "packageId": "6370",
+            "stickerId": "11088017"
           }
         ])
         alert("Message sent")
@@ -126,7 +126,7 @@
         getContext()
         getFriendship()
       }else{
-        liff.login({ redirectUri: window.location.href })
+        liff.login()
       }
     }
     main()
