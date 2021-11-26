@@ -25,7 +25,6 @@
   <p id="friendship"><b>isFriendship:</b> </p>
   <p id="scanCode"><b>Code:</b> </p>
   <p id="isLoggedIn"><b>isLoggedIn:</b> </p>
-  <p id="param"><b>Param: </b></p>
 
   <button id="btnMsg" onclick="sendMsg()">Send Message</button>
   <button id="btnShare" onclick="shareMsg()">Share Target Picker</button>
@@ -36,10 +35,6 @@
 
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script>
-    const queryString = decodeURIComponent(window.location.search);
-    const params = new URLSearchParams(queryString);
-    document.getElementById("param").append(params.get("param"));
-    
     async function shareMsg() {
       await liff.shareTargetPicker([
         {
