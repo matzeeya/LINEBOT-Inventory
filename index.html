@@ -41,12 +41,11 @@
     async function shareMsg() {
     }
 
-    async function logOut() {
-      const lg = await liff.logOut()
+    function logOut() {
+      const lg = document.getElementById("logout").append(liff.logout())
       console.log(lg)
       liff.logout()
       window.location.reload()
-      //alert("logout")
     }
 
     function closed() {
