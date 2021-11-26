@@ -114,7 +114,9 @@
     async function main() {
       await liff.init({ liffId: "1656639524-loJjd1JV" })
       document.getElementById("isLoggedIn").append(liff.isLoggedIn())
-      if (liff.isLoggedIn()){
+      if(!liff.isLoggedIn()){
+        liff.login()
+      }else{
         getEnvironment()
         getUserProfile()
         getContext()
