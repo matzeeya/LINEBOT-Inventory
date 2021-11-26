@@ -42,8 +42,6 @@
     }
 
     function logOut() {
-      const lg = document.getElementById("logout").append(liff.logOut())
-      console.log(lg)
       liff.logout()
       window.location.reload()
     }
@@ -75,7 +73,7 @@
     }
 
     async function sendMsg() {
-      if(liff.getContext().type !== "none"){
+      if(liff.getContext().type !== "undefined"){
         await liff.sendMessages([
           {
             "type":"sticker",
