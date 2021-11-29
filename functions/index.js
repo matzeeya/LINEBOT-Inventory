@@ -23,7 +23,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
   console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
 
   function welcome(agent) {
-    agent.add(`Welcome to my agent!`);
+    agent.add(`หวัดดี`);
   }
 
   function fallback(agent) {
@@ -31,9 +31,14 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     agent.add(`I'm sorry, can you try again?`);
   }
 
+  function registerAccountYes(agent) {
+    agent.add(`register`);
+  }
+
   // Run the proper function handler based on the matched Dialogflow intent name
   let intentMap = new Map();
   intentMap.set('Default Welcome Intent', welcome);
   intentMap.set('Default Fallback Intent', fallback);
+  intentMap.set('User-Register-Account-yes', registerAccountYes);
   return agent.handleRequest(intentMap);
 });
