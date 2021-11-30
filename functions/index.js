@@ -31,7 +31,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     agent.add(`I'm sorry, can you try again?`);
   }
 
-  function registerAccountYes(agent) {
+  function registerAccountIsYes(agent) {
     agent.add(`register`);
   }
 
@@ -39,6 +39,6 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
   let intentMap = new Map();
   intentMap.set('Default Welcome Intent', welcome);
   intentMap.set('Default Fallback Intent', fallback);
-  intentMap.set('User-Register-Account-yes', registerAccountYes);
+  intentMap.set('User-Register-Account-yes', registerAccountIsYes);
   return agent.handleRequest(intentMap);
 });
