@@ -2,8 +2,7 @@
 node_modules
 /dist
 /src/database
-/functions/node_modules
-/bot/functions/node_modules
+/bot
 
 
 # local env files
