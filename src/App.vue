@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import firebase from "./database/firebase"
+import firebase from "./../backend/database/firebase"
 const userRegister = firebase.collection("userRegister")
 
 export default {

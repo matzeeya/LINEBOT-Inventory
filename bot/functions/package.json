@@ -17,7 +17,10 @@
     "firebase-functions": "^3.16.0",
     "actions-on-google": "^2.5.0",
     "dialogflow": "^1.2.0",
-    "dialogflow-fulfillment": "^0.6.1"
+    "dialogflow-fulfillment": "^0.6.1",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5",
+    "uuid-v4": "^0.1.0"
   },
   "devDependencies": {
     "firebase-functions-test": "^0.2.0"
