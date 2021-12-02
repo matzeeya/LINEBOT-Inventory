@@ -3,6 +3,7 @@ node_modules
 /dist
 /backend/database
 /bot/functions/node_modules
+/bot/functions/config.js
 
 
 # local env files
