@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 /dist
-/backend/database
+/backend/database/firebase.js
 /bot/functions/node_modules
 /bot/functions/config.js
 
