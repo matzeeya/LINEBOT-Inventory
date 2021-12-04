@@ -1,5 +1,5 @@
-var ACCESS_TOKEN = 'O50z1Rjslnl7DWhj6aUfAtXleQ1NOa2aGgw1j2lq5yhiSqJiBzze8DlkUCJz3YvWnsYolcCI6L2QDgc0tRGHU9nyQ0DIuNmaIOKsU66pJ/Ce2e2uzwHt3NwmL2ZiTpKQ0oiY2igh+PLLF4mQAi46/gdB04t89/1O/w1cDnyilFU=';
-var FOLDER_ID = '1Wz7-__6cHHo6mfmei1AU4br0IZeu564C';
+var ACCESS_TOKEN = 'LINE Provider Token';
+var FOLDER_ID = 'Drive id';
 var REPLY_URL = 'https://api.line.me/v2/bot/message/reply';
 
 function sendMsg(url, payload) {
