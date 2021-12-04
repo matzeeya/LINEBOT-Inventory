@@ -1,0 +1,11 @@
+const config = {
+  accessToken: 'xxx', //line token
+  serviceAccountPath: './serviceAccount.json', //firebase
+  databaseURL: 'xxx.firebaseio.com', //firebase
+  CLIENT_ID: 'xxx', //oauth2Client
+  CLIENT_SECRET: 'xxx', //oauth2Client
+  REDIRECT_URI: 'https://developers.google.com/oauthplayground', //oauth2Client
+  REFRESH_TOKEN: 'xxx' //oauth2Client
+};
+
+module.exports = config;
