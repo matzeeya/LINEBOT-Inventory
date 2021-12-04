@@ -1,23 +1,21 @@
-const functions = require('firebase-functions');
-var config = require('./config.js');
+const functions = require('firebase-functions')
+
+// สำหรับการเข้าถึง Cloud Storage
+const admin = require("firebase-admin");
+admin.initializeApp();
+
 // สำหรับ network requests
 const axios = require('axios');
 
-// Google API
-const { google } = require('googleapis');
+// สำหรับสร้าง public url ใน Cloud Storage
+const UUID = require("uuid-v4");
 
-const oauth2Client = new google.auth.OAuth2(
-  config.CLIENT_ID,
-  config.CLIENT_SECRET,
-  config.REDIRECT_URI
-);
+// เชื่อมต่อ firebase
+var config = require('./config.js');
 
-oauth2Client.setCredentials({ refresh_token: config.REFRESH_TOKEN });
-
-const drive = google.drive({
-  version: 'v3',
-  auth: oauth2Client,
-});
+// bit.ly
+const BitlyClient = require('bitly').BitlyClient;
+const bitly = new BitlyClient(config.bitly);
 
 // สำหรับจัดการไฟล์
 const path = require("path");
@@ -31,19 +29,36 @@ const LINE_HEADER = {
   Authorization: `Bearer ${config.accessToken}`
 };
 
-exports.fulfillment = functions.https.onRequest(async (request, response) => {
-  const event = request.body.events[0];
-
+exports.fulfillment = functions.https.onRequest(async(req, res) => {
+  const event = req.body.events[0];
   if (event.type === 'message' && event.message.type === 'image') {
     // เรียกฟังก์ชัน upload เมื่อเข้าเงื่อนไข
-    const img = await getImage(event);
-    //console.log("upload:" + img);
-
-    await reply(event.replyToken, { type: "text", text: img });
+    const urls = await upload(event);
+    const shortLink = await shortenUrl(urls);
+    //console.log("shortenUrl: " + shortLink.link);
+    // reply ตัว URL ที่ได้กลับไปยังห้องแชท
+    await reply(event.replyToken, { type: "text", text: "บันทึกสำเร็จ "+shortLink });
   }
+  return res.end();
 });
 
-const getImage = async(event) => {
+const reply = (replyToken, payload) => {
+  axios({
+    method: "post",
+    url: `${LINE_MESSAGING_API}/message/reply`,
+    headers: LINE_HEADER,
+    data: JSON.stringify({
+      replyToken: replyToken,
+      messages: [payload]
+    })
+  })
+};
+
+const shortenUrl = (url) => {
+  return bitly.shorten(url);
+};
+
+const upload = async(event) => {
   const url = `${LINE_CONTENT_API}/${event.message.id}/content`;
   const buffer = await axios({
     method: "get",
@@ -56,44 +71,21 @@ const getImage = async(event) => {
   const tempLocalFile = path.join(os.tmpdir(), filename);
   await fs.writeFileSync(tempLocalFile, buffer.data);
 
-  const filePath = path.join(tempLocalFile);
-  console.log(filePath);
-  try {
-    const response = await drive.files.create({
-      requestBody: {
-        name: filename, //This can be name of your choice
-        mimeType: 'image/jpg',
-      },
-      media: {
-        mimeType: 'image/jpg',
-        body: fs.createReadStream(filePath),
+  const uuid = UUID()
+
+  const bucket = admin.storage().bucket()
+  const file = await bucket.upload(tempLocalFile, {
+    // กำหนด path ในการเก็บไฟล์แยกเป็นแต่ละ userId
+    destination: `photos/${event.source.userId}/${filename}`,
+    metadata: {
+      cacheControl: 'no-cache',
+      metadata: {
+        firebaseStorageDownloadTokens: uuid
       }
-    });
-    //console.log("res: "+ response.data);
-    var urls = "";
-    var obj = response.data; // ข้อมูลไฟล์ที่ upload {name,id}
-    for (var key in obj) {
-      if (key == "id"){
-        urls = "https://drive.google.com/open?id="+obj[key]; // url รูปที่ upload ขึ้น google drive
-      }
-      //console.log(' name=' + key + ' value=' + obj[key]);
     }
-  } catch (error) {
-    console.log(error.message);
-  }
-
-  fs.unlinkSync(tempLocalFile)
-  return urls;
-};
-
-const reply = (replyToken, payload) => {
-  axios({
-    method: "post",
-    url: `${LINE_MESSAGING_API}/message/reply`,
-    headers: LINE_HEADER,
-    data: JSON.stringify({
-      replyToken: replyToken,
-      messages: [payload]
-    })
   })
+  fs.unlinkSync(tempLocalFile)
+  const prefix = `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o`
+  const suffix = `alt=media&token=${uuid}`
+  return `${prefix}/${encodeURIComponent(file[0].name)}?${suffix}`
 };

@@ -5,7 +5,10 @@ const config = {
   CLIENT_ID: 'xxx', //oauth2Client
   CLIENT_SECRET: 'xxx', //oauth2Client
   REDIRECT_URI: 'https://developers.google.com/oauthplayground', //oauth2Client
-  REFRESH_TOKEN: 'xxx' //oauth2Client
+  REFRESH_TOKEN: 'xxx', //oauth2Client
+  FOLDER_ID: 'xxx', // Google Drive
+  SCOPES: 'https://www.googleapis.com/auth/drive' // Google Drive
+  bitly: 'xxx' // bitly token
 };
 
 module.exports = config;
