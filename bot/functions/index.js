@@ -1,35 +1,50 @@
-// See https://github.com/dialogflow/dialogflow-fulfillment-nodejs
-// for Dialogflow fulfillment library docs, samples, and to report issues
 'use strict';
+const functions = require('firebase-functions')
+// สำหรับ network requests
+const axios = require('axios');
+// เชื่อมต่อ firebase
+var config = require('./config.js');
 
-const functions = require('firebase-functions');
-const region = 'asia-northeast1';
+var photo = require('./myModules/selfie');
 
-// เชื่อมต่อ Dialogflow
-const {WebhookClient, Payload} = require('dialogflow-fulfillment');
-const {Card, Suggestion} = require('dialogflow-fulfillment');
- 
-process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
+const LINE_MESSAGING_API = "https://api.line.me/v2/bot";
+const LINE_HEADER = {
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${config.accessToken}`
+};
 
-exports.fulfillment = functions.region(region).https.onRequest(async(request, response) => {
-  const agent = new WebhookClient({ request, response });
-  //console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
-  //console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
-
-  function takePhoto(agent){
-    agent.add(new Card({
-        title: "ถ่ายเซลฟี่เพื่อยืนยันตัวตน",
-        imageUrl: 'https://png.pngtree.com/png-clipart/20190726/ourlarge/pngtree-fashion-youth-girl-selfie-png-image_1516241.jpg',
-        text: "กรุณาถอดแมสและแว่นตาขณะถ่ายรูป",
-        buttonText: 'กดเพื่อถ่าย',
-        buttonUrl: 'https://line.me/R/nv/camera/' // call liff selfie
-      })
-    );
+exports.fulfillment = functions.https.onRequest(async(req, res) => {
+  //photo.selfie(req, res);
+  if(req.method === "POST"){
+    let event = req.body.events[0];
+    if(event.message.type !== "text"){
+      console.log("type: "+ event.message.type);
+      await reply(event.replyToken, { type: "text", text: event.message.type});
+    } else {
+      postToDialogflow(req);
+    }
   }
-
-  // Run the proper function handler based on the matched Dialogflow intent name
-  let intentMap = new Map();
-  intentMap.set('upload-photo', takePhoto);
-  agent.handleRequest(intentMap);
+  return res.status(200).send('done');
 });
 
+const reply = (replyToken, payload) => {
+  axios({
+    method: "post",
+    url: `${LINE_MESSAGING_API}/message/reply`,
+    headers: LINE_HEADER,
+    data: JSON.stringify({
+      replyToken: replyToken,
+      messages: [payload]
+    })
+  })
+};
+
+const postToDialogflow = payloadRequest => {
+  payloadRequest.headers.host = "dialogflow.cloud.google.com"
+  axios({
+    url: "https://dialogflow.cloud.google.com/v1/integrations/line/webhook/87196520-2ab0-472a-81ce-b9bc88a32e7c",
+    headers: payloadRequest.headers,
+    method: "post",
+    data: payloadRequest.body
+  })
+}
