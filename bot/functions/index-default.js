@@ -11,6 +11,7 @@ const {Card, Suggestion} = require('dialogflow-fulfillment');
 process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 
 const  userRegister = require('./myModules/userResgister');
+const  photo = require('./myModules/uploadPhoto');
 
 exports.fulfillment = functions.https.onRequest((request, response) => {
   const agent = new WebhookClient({ request, response });

@@ -4,8 +4,6 @@ node_modules
 /backend/database/firebase.js
 /bot/functions/node_modules
 /bot/functions/config.js
-/bot/functions/credentials.json
-
 
 # local env files
 .env.local
