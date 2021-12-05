@@ -9,7 +9,7 @@ const axios = require('axios');
 const UUID = require("uuid-v4");
 
 // เชื่อมต่อ firebase
-var config = require('.././config.js');
+var config = require('../config.js');
 
 // bit.ly
 const BitlyClient = require('bitly').BitlyClient;
@@ -30,7 +30,8 @@ const LINE_HEADER = {
   Authorization: `Bearer ${config.accessToken}`
 };
 
-async function uploadPhoto(req, res){
+async function selfie(req, res){
+  console.log("ok");
   const event = req.body.events[0];
   if (event.type === 'message' && event.message.type === 'image') {
     // เรียกฟังก์ชัน upload เมื่อเข้าเงื่อนไข
@@ -100,4 +101,4 @@ const upload = async(event) => {
   return `${prefix}/${encodeURIComponent(file[0].name)}?${suffix}`
 };
 
-module.exports={ uploadPhoto };
+module.exports={ selfie };
