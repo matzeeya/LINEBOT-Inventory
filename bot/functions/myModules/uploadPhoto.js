@@ -59,17 +59,6 @@ const shortenUrl = (url) => {
   return bitly.shorten(url);
 };
 
-const resizeHeight = async(img,name) =>{
-  try {
-    await sharp(img)
-      .resize({
-        height: 280
-      })
-      .toFile('resize-'+name);
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 const upload = async(event) => {
   const url = `${LINE_CONTENT_API}/${event.message.id}/content`;
@@ -84,12 +73,17 @@ const upload = async(event) => {
   const tempLocalFile = path.join(os.tmpdir(), filename);
   await fs.writeFileSync(tempLocalFile, buffer.data);
 
-  const resizeImage = await resizeHeight(tempLocalFile,filename);
-  console.log("resize "+path.dirname(resizeImage));
+  await sharp(tempLocalFile)
+    .resize({
+      height: 280
+    })
+    .toFile('resize-'+filename);
+  
+  const resizeImage = path.dirname('resize-'+filename)+'/resize-'+filename;
   const uuid = UUID()
 
   const bucket = admin.storage().bucket()
-  const file = await bucket.upload(tempLocalFile, {
+  const file = await bucket.upload(resizeImage, {
     // กำหนด path ในการเก็บไฟล์แยกเป็นแต่ละ userId
     destination: `photos/${event.source.userId}/${filename}`,
     metadata: {
@@ -99,7 +93,8 @@ const upload = async(event) => {
       }
     }
   })
-  fs.unlinkSync(tempLocalFile)
+  fs.unlinkSync(resizeImage);
+  fs.unlinkSync(tempLocalFile);
   const prefix = `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o`
   const suffix = `alt=media&token=${uuid}`
   return `${prefix}/${encodeURIComponent(file[0].name)}?${suffix}`
