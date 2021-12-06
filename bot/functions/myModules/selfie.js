@@ -31,7 +31,7 @@ const LINE_HEADER = {
 };
 
 async function selfie(req, res){
-  console.log("ok");
+  //console.log("ok");
   const event = req.body.events[0];
   if (event.type === 'message' && event.message.type === 'image') {
     // เรียกฟังก์ชัน upload เมื่อเข้าเงื่อนไข
@@ -39,7 +39,24 @@ async function selfie(req, res){
     const shortLink = await shortenUrl(urls);
     //console.log("shortenUrl: " + shortLink.link);
     // reply ตัว URL ที่ได้กลับไปยังห้องแชท
-    await reply(event.replyToken, { type: "text", text: "บันทึกสำเร็จ "+shortLink.link });
+    //await reply(event.replyToken, { type: "text", text: "บันทึกสำเร็จ "+shortLink.link });
+    await reply(event.replyToken, { 
+      "type": "text",
+      "text": "บันทึกสำเร็จ",
+      "quickReply": {
+        "items": [
+          {
+            "type": "action",
+            "imageUrl": "https://icon-library.com/images/confirm-icon/confirm-icon-18.jpg",
+            "action": {
+              "type": "message",
+              "label": "กดที่นี่เพื่อยืนยัน",
+              "text": "สำเร็จ"
+            }
+          }
+        ]
+      }
+    });
   }
   return res.end();
 };
@@ -59,7 +76,6 @@ const reply = (replyToken, payload) => {
 const shortenUrl = (url) => {
   return bitly.shorten(url);
 };
-
 
 const upload = async(event) => {
   const url = `${LINE_CONTENT_API}/${event.message.id}/content`;

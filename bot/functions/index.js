@@ -14,12 +14,15 @@ const LINE_HEADER = {
 };
 
 exports.fulfillment = functions.https.onRequest(async(req, res) => {
-  //photo.selfie(req, res);
   if(req.method === "POST"){
     let event = req.body.events[0];
+    //console.log("userID: "+ event.source.userId); //get userid
     if(event.message.type !== "text"){
-      console.log("type: "+ event.message.type);
-      await reply(event.replyToken, { type: "text", text: event.message.type});
+      //console.log("type: "+ event.message.type);
+      //await reply(event.replyToken, { type: "text", text: event.message.type});
+      if(event.message.type === "image"){
+        photo.selfie(req, res); // เรียก function selfie
+      }
     } else {
       postToDialogflow(req);
     }
