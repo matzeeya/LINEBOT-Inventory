@@ -2,7 +2,8 @@ const config = {
   accessToken: 'xxx', //line token
   serviceAccountPath: './serviceAccount.json', //firebase
   databaseURL: 'xxx.firebaseio.com', //firebase
-  bitly: 'xxx' // bitly token
+  bitly: 'xxx', // bitly token
+  dialogflow: 'xxx' // dialogflow webhook
 };
 
 module.exports = config;

@@ -4,8 +4,9 @@ const functions = require('firebase-functions')
 const axios = require('axios');
 // เชื่อมต่อ firebase
 var config = require('./config.js');
+const region = 'asia-northeast1';
 
-var photo = require('./myModules/selfie');
+var photo = require('./myModules/uploadPhoto');
 
 const LINE_MESSAGING_API = "https://api.line.me/v2/bot";
 const LINE_HEADER = {
@@ -13,7 +14,7 @@ const LINE_HEADER = {
   Authorization: `Bearer ${config.accessToken}`
 };
 
-exports.fulfillment = functions.https.onRequest(async(req, res) => {
+exports.fulfillment = functions.region(region).https.onRequest(async(req, res) => {
   if(req.method === "POST"){
     let event = req.body.events[0];
     //console.log("userID: "+ event.source.userId); //get userid
@@ -21,7 +22,7 @@ exports.fulfillment = functions.https.onRequest(async(req, res) => {
       //console.log("type: "+ event.message.type);
       //await reply(event.replyToken, { type: "text", text: event.message.type});
       if(event.message.type === "image"){
-        photo.selfie(req, res); // เรียก function selfie
+        photo.uploadPhoto(req, res); // เรียก function selfie
       }
     } else {
       postToDialogflow(req);
@@ -45,7 +46,7 @@ const reply = (replyToken, payload) => {
 const postToDialogflow = payloadRequest => {
   payloadRequest.headers.host = "dialogflow.cloud.google.com"
   axios({
-    url: "https://dialogflow.cloud.google.com/v1/integrations/line/webhook/87196520-2ab0-472a-81ce-b9bc88a32e7c",
+    url: config.dialogflow,
     headers: payloadRequest.headers,
     method: "post",
     data: payloadRequest.body

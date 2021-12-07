@@ -30,7 +30,7 @@ const LINE_HEADER = {
   Authorization: `Bearer ${config.accessToken}`
 };
 
-async function selfie(req, res){
+async function uploadPhoto(req, res){
   //console.log("ok");
   const event = req.body.events[0];
   if (event.type === 'message' && event.message.type === 'image') {
@@ -42,7 +42,7 @@ async function selfie(req, res){
     //await reply(event.replyToken, { type: "text", text: "บันทึกสำเร็จ "+shortLink.link });
     await reply(event.replyToken, { 
       "type": "text",
-      "text": "บันทึกสำเร็จ",
+      "text": "บันทึกสำเร็จ " + shortLink.link,
       "quickReply": {
         "items": [
           {
@@ -117,4 +117,4 @@ const upload = async(event) => {
   return `${prefix}/${encodeURIComponent(file[0].name)}?${suffix}`
 };
 
-module.exports={ selfie };
+module.exports={ uploadPhoto };
