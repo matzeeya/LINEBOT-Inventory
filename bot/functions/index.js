@@ -8,11 +8,11 @@ const region = 'asia-northeast1';
 
 var photo = require('./myModules/uploadPhoto');
 
-/*const LINE_MESSAGING_API = "https://api.line.me/v2/bot";
+const LINE_MESSAGING_API = "https://api.line.me/v2/bot";
 const LINE_HEADER = {
   "Content-Type": "application/json",
   Authorization: `Bearer ${config.accessToken}`
-};*/
+};
 
 exports.fulfillment = functions.region(region).https.onRequest(async(req, res) => {
   if(req.method === "POST"){
@@ -20,9 +20,10 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
     //console.log("userID: "+ event.source.userId); //get userid
     //console.log("type: "+ event.message.type);
     if(event.message.type !== "text"){
-      //await reply(event.replyToken, { type: "text", text: event.message.type});
       if(event.message.type === "image"){
         photo.uploadPhoto(req, res); // เรียก function uploadPhoto
+      }else{
+        await reply(event.replyToken, { type: "text", text: "สวัสดีค่ะ"});
       }
     } else {
       postToDialogflow(req);
@@ -31,7 +32,7 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
   return res.status(200).send('done');
 });
 
-/*const reply = (replyToken, payload) => {
+const reply = (replyToken, payload) => {
   axios({
     method: "post",
     url: `${LINE_MESSAGING_API}/message/reply`,
@@ -41,7 +42,7 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
       messages: [payload]
     })
   })
-};*/
+};
 
 const postToDialogflow = payloadRequest => {
   payloadRequest.headers.host = "dialogflow.cloud.google.com"
