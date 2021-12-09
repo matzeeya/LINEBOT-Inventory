@@ -1,0 +1,28 @@
+{
+  "line": {
+    "type": "text",
+    "text": "ต้องการเลือกประเภทผู้ใช้งานอีกครั้งหรือไม่",
+    "quickReply": {
+      "items": [
+        {
+          "type": "action",
+          "imageUrl": "https://icon-library.com/images/confirm-icon/confirm-icon-18.jpg",
+          "action": {
+            "label": "ใช่",
+            "text": "$email",
+            "type": "message"
+          }
+        },
+        {
+          "type": "action",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Flat_cross_icon.svg/512px-Flat_cross_icon.svg.png",
+          "action": {
+            "type": "message",
+            "label": "ไม่ใช่",
+            "text": "ตรวจสอบผู้ใช้งาน"
+          }
+        }
+      ]
+    }
+  }
+}
