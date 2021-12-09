@@ -5,8 +5,9 @@ const axios = require('axios');
 // เชื่อมต่อ firebase
 var config = require('./config.js');
 const region = 'asia-northeast1';
-
+//const rp = require('request-promise-native');
 var photo = require('./myModules/uploadPhoto');
+var users = require('./myModules/userResgister');
 
 const LINE_MESSAGING_API = "https://api.line.me/v2/bot";
 const LINE_HEADER = {
@@ -26,7 +27,13 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
         await reply(event.replyToken, { type: "text", text: "สวัสดีค่ะ"});
       }
     } else {
-      postToDialogflow(req);
+      console.log("text: "+ event.message.text);
+      if(event.message.text === "ตรวจสอบผู้ใช้งาน"){
+        users.userVertify(req,res);
+      }else{
+        postToDialogflow(req);
+        //processToOtherUrl(req);
+      }
     }
   }
   return res.status(200).send('done');
@@ -53,3 +60,27 @@ const postToDialogflow = payloadRequest => {
     data: payloadRequest.body
   })
 }
+
+/*const processToOtherUrl =function(payloadRequest){
+  console.log('processToOtherUrl');
+  
+  payloadRequest.headers.host = "dialogflow.cloud.google.com"
+    var options = {
+      method: 'POST',
+      uri: config.dialogflow,
+      headers: payloadRequest.headers,
+      body: payloadRequest.body,
+      json: true // Automatically stringifies the body to JSON
+  };
+
+    return rp( options ).then( data => {
+      //console.log(data);
+      //JSON.stringify(data);
+      console.log('OK Data');
+      console.log(data);
+    }).catch(function (err) {
+      // POST failed...
+      console.log('OK Error');
+      console.log(err);
+    });
+}*/

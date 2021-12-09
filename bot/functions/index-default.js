@@ -8,10 +8,11 @@ const region = 'asia-northeast1';
 // เชื่อมต่อ Dialogflow
 const {WebhookClient, Payload} = require('dialogflow-fulfillment');
 const {Card, Suggestion} = require('dialogflow-fulfillment');
+
  
 process.env.DEBUG = 'dialogflow:debug'; // enables lib debugging statements
 
-exports.fulfillment = functions.region(region).https.onRequest(async(request, response) => {
+exports.dialogfulfillment = functions.region(region).https.onRequest(async(request, response) => {
   const agent = new WebhookClient({ request, response });
   //console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
   //console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
