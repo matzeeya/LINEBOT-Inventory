@@ -27,7 +27,7 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
         await reply(event.replyToken, { type: "text", text: "สวัสดีค่ะ"});
       }
     } else {
-      console.log("text: "+ event.message.text);
+      //console.log("text: "+ event.message.text);
       if(event.message.text === "ตรวจสอบผู้ใช้งาน"){
         users.userVertify(req,res);
       }else{

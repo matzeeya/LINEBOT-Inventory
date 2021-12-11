@@ -1,11 +1,10 @@
-// เชื่อมต่อ firebase
-var config = require('../config.js');
-
 // สำหรับ network requests
 const axios = require('axios');
 
+// เชื่อมต่อ firebase
+var config = require('../config.js');
+
 const LINE_MESSAGING_API = "https://api.line.me/v2/bot";
-const LINE_CONTENT_API = "https://api-data.line.me/v2/bot/message";
 const LINE_HEADER = {
   "Content-Type": "application/json",
   Authorization: `Bearer ${config.accessToken}`
@@ -13,27 +12,36 @@ const LINE_HEADER = {
 
 async function userVertify(req, res) {
   const event = req.body.events[0];
-  console.log("event: "+event);
-  /*if (event.message.type === 'text' && event.message.type === 'ตรวจสอบผู้ใช้งาน') {
-    await reply(event.replyToken, { 
-      "type": "text",
-      "text": "บันทึกสำเร็จ",
-      "quickReply": {
-        "items": [
+  await reply(event.replyToken, { 
+    type: "template",
+      altText: "ไม่รองรับการแสดงผลบนอุปกรณ์นี้",
+      template: {
+        type: "carousel",
+        imageAspectRatio: "rectangle",
+        imageSize: "cover",
+        columns: [
           {
-            "type": "action",
-            "imageUrl": "https://icon-library.com/images/confirm-icon/confirm-icon-18.jpg",
-            "action": {
-              "type": "message",
-              "label": "กดที่นี่เพื่อยืนยัน",
-              "text": "สำเร็จ"
-            }
+            thumbnailImageUrl: "https://vignette.wikia.nocookie.net/line/images/b/bb/2015-brown.png",
+            imageBackgroundColor: "#FFFFFF",
+            title: "Name: ecpe-software",
+            text: "description",
+            actions: [
+              {
+                type: "uri",
+                label: "ดูรายละเอียด",
+                uri: "expe-software@nu.ac.th"
+              }
+            ]
           }
         ]
       }
-    });
-  }*/
+  });
   return res.end();
+  /*{
+    type: "message",
+    label: "ดูรายละเอียด",
+    text: "expe-software@nu.ac.th"
+  }*/
 };
 
 const reply = (replyToken, payload) => {
