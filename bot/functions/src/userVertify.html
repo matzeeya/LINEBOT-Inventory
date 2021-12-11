@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Path</title>
+    <title>Vertify</title>
   </head>
   <body>
     <p id="param"><b>Query Param: </b></p>
@@ -21,7 +21,7 @@
     <script>
       async function getUserProfile() {
         const profile = await liff.getProfile()
-        document.getElementById("pictureUrl").src = profile.pictureUrl
+        //document.getElementById("pictureUrl").src = profile.pictureUrl
         document.getElementById("userId").append(profile.userId)
         document.getElementById("statusMessage").append(profile.statusMessage)
         document.getElementById("displayName").append(profile.displayName)

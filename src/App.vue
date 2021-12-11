@@ -16,7 +16,7 @@ export default {
       snapshot.forEach(doc => {
         if (doc.data()){
           console.log(doc.id)
-          console.log(doc.data().email)
+          console.log(doc.data().account)
         }
       })
     })
