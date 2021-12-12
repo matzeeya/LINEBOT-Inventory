@@ -28,9 +28,9 @@ async function userVertify(req, res) {
             text: "description",
             actions: [
               {
-                type: "message",
+                type: "uri",
                 label: "ดูรายละเอียด",
-                text: "expe-software@nu.ac.th"
+                uri: "https://matzeeya.github.io/liff-inventory/bot/functions/src/userVertify.html?param=" + `${userId}`
               }
             ]
           }
@@ -39,9 +39,10 @@ async function userVertify(req, res) {
   });
   return res.end();
   /*{
-    type: "uri",
+    type: "message",
     label: "ดูรายละเอียด",
-    uri: "path/?param=" + `${userId}`
+    text: "expe-software@nu.ac.th"
+    
   }*/
 };
 
