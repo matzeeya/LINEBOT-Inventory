@@ -28,12 +28,12 @@
         document.getElementById("decodedIDToken").append(liff.getDecodedIDToken().email)
       }
       async function main() {
-        var config = require('../bot/functions/liff-config.js');
-        await liff.init({ liffId: config.LIFF_ID })
+        //var config = require('../bot/functions/liff-config.js');
+        await liff.init({ liffId: "1656639524-loJjd1JV" })
         if (liff.isLoggedIn()) {
           getUserProfile()
         } else {
-          liff.login({ redirectUri: `${config.LIFF_URL}/path/` })
+          liff.login({ redirectUri: `https://liff.line.me/1656639524-loJjd1JV/path/` })
         }
       }
       main()

@@ -17,12 +17,12 @@
         document.getElementById("userId").append(profile.userId)
       }
       async function main() {
-        var config = require('../liff-config.js');
-        await liff.init({ liffId: config.LIFF_ID })
+        //var config = require('../liff-config.js');
+        await liff.init({ liffId: "1656639524-loJjd1JV" })
         if (liff.isLoggedIn()) {
           getUserProfile()
         }else{
-          liff.login({ redirectUri: `${config.LIFF_URL}/bot/functions/src/userVertify.html` })
+          liff.login({ redirectUri: `https://liff.line.me/1656639524-loJjd1JV/bot/functions/src/userVertify.html` })
         }
       }
       main()
