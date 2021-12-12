@@ -3,6 +3,7 @@ const axios = require('axios');
 
 // เชื่อมต่อ firebase
 var config = require('../config.js');
+var liff_url = require('../liff-config.js');
 
 const LINE_MESSAGING_API = "https://api.line.me/v2/bot";
 const LINE_HEADER = {
@@ -30,7 +31,7 @@ async function userVertify(req, res) {
               {
                 type: "uri",
                 label: "ดูรายละเอียด",
-                uri: `https://matzeeya.github.io/liff-inventory/bot/functions/src/userVertify.html?uid=9`
+                uri: `${liff_url.LIFF_URL}/bot/functions/src/userVertify.html?uid=${userId}`
               }
             ]
           }
