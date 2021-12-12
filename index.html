@@ -141,6 +141,7 @@
     }
 
     async function main() {
+      var config = require('./bot/functions/liff-config.js');
       liff.ready.then(() => {
         document.getElementById("isLoggedIn").append(liff.isLoggedIn())
         if(!liff.isLoggedIn()){
@@ -153,7 +154,7 @@
           createUniversalLink()
         }
       })
-      await liff.init({ liffId: "1656639524-loJjd1JV" })
+      await liff.init({ liffId: config.LIFF_ID })
     }
     main()
   </script>
