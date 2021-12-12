@@ -12,6 +12,7 @@ const LINE_HEADER = {
 
 async function userVertify(req, res) {
   const event = req.body.events[0];
+  console.log("userID: "+ event.source.userId);
   await reply(event.replyToken, { 
     type: "template",
       altText: "ไม่รองรับการแสดงผลบนอุปกรณ์นี้",
@@ -29,7 +30,7 @@ async function userVertify(req, res) {
               {
                 type: "uri",
                 label: "ดูรายละเอียด",
-                uri: "expe-software@nu.ac.th"
+                uri: "path/?param=9"
               }
             ]
           }
