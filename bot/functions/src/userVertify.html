@@ -10,13 +10,15 @@
     <script>
     </script>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <!--<script src="../liff-config.js"></script>-->
     <script>
       async function getUserProfile() {
         const profile = await liff.getProfile()
         document.getElementById("userId").append(profile.userId)
       }
       async function main() {
-        await liff.init({ liffId: "1656639524-loJjd1JV" })
+        var config = require('../liff-config.js');
+        await liff.init({ liffId: config.LIFF_ID })
         if (liff.isLoggedIn()) {
           getUserProfile()
         }else{
