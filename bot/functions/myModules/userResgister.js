@@ -30,7 +30,7 @@ async function userVertify(req, res) {
               {
                 type: "uri",
                 label: "ดูรายละเอียด",
-                uri: `https://matzeeya.github.io/liff-inventory/bot/functions/src/userVertify.html?uid=${userId}`
+                uri: `https://matzeeya.github.io/liff-inventory/bot/functions/src/userVertify.html?uid=9`
               }
             ]
           }
