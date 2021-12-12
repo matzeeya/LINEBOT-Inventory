@@ -5,7 +5,7 @@
     <title>Vertify</title>
   </head>
   <body>
-    <p id="param"><b>Query Param: </b></p>
+    <p id="uid"><b>uid: </b></p>
     <p id="userId"><b>userId:</b> </p>
     <script>
     </script>
@@ -20,7 +20,7 @@
         if (liff.isLoggedIn()) {
           getUserProfile()
         }else{
-          liff.login({ redirectUri: "https://matzeeya.github.io/liff-inventory/bot/functions/src/userVertify.html" })
+          liff.login({ redirectUri: "https://matzeeya.github.io/liff-inventory/bot/functions/src/userVertify.html?" })
         }
       }
       main()
