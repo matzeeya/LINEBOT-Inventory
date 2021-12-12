@@ -12,7 +12,7 @@ const LINE_HEADER = {
 
 async function userVertify(req, res) {
   const event = req.body.events[0];
-  console.log("userID: "+ event.source.userId);
+  const userId = event.source.userId;
   await reply(event.replyToken, { 
     type: "template",
       altText: "ไม่รองรับการแสดงผลบนอุปกรณ์นี้",
@@ -28,9 +28,9 @@ async function userVertify(req, res) {
             text: "description",
             actions: [
               {
-                type: "uri",
+                type: "message",
                 label: "ดูรายละเอียด",
-                uri: "path/?param=9"
+                text: "expe-software@nu.ac.th"
               }
             ]
           }
@@ -39,9 +39,9 @@ async function userVertify(req, res) {
   });
   return res.end();
   /*{
-    type: "message",
+    type: "uri",
     label: "ดูรายละเอียด",
-    text: "expe-software@nu.ac.th"
+    uri: "path/?param=" + `${userId}`
   }*/
 };
 

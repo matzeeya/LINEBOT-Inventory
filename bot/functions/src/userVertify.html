@@ -19,6 +19,8 @@
         await liff.init({ liffId: "1656639524-loJjd1JV" })
         if (liff.isLoggedIn()) {
           getUserProfile()
+        }else{
+          liff.login({ redirectUri: "https://matzeeya.github.io/liff-inventory/bot/functions/src/" })
         }
       }
       main()
