@@ -12,7 +12,7 @@ const LINE_HEADER = {
 
 async function userVertify(req, res) {
   const event = req.body.events[0];
-  const userId = event.source.userId;
+  const userId = "U526d4";
   await reply(event.replyToken, { 
     type: "template",
       altText: "ไม่รองรับการแสดงผลบนอุปกรณ์นี้",
@@ -30,7 +30,7 @@ async function userVertify(req, res) {
               {
                 type: "uri",
                 label: "ดูรายละเอียด",
-                uri: "https://matzeeya.github.io/liff-inventory/bot/functions/src/userVertify.html?param=" + `${userId}`
+                uri: `https://matzeeya.github.io/liff-inventory/bot/functions/src/userVertify.html?param=${userId}`
               }
             ]
           }
