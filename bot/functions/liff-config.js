@@ -3,4 +3,4 @@ const config = {
     LIFF_ID: '1656639524-loJjd1JV'
   };
   
-  module.exports = config;
+module.exports = config;

@@ -140,6 +140,10 @@
       }
     }
 
+    function liffID(){
+      return "1656639524-loJjd1JV"
+    }
+
     async function main() {
       //var config = require('./bot/functions/liff-config.js');
       liff.ready.then(() => {
@@ -154,7 +158,7 @@
           createUniversalLink()
         }
       })
-      await liff.init({ liffId: "1656639524-loJjd1JV" })
+      await liff.init({ liffId: liffID() })
     }
     main()
   </script>
