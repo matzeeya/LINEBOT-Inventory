@@ -5,25 +5,27 @@
     <title>Vertify</title>
   </head>
   <body>
-    <p id="uid"><b>uid: </b></p>
+    <p id="uid"><b>uid:</b> </p>
     <p id="userId"><b>Id:</b> </p>
-    <script>
-      // Query Params
-      const queryString = decodeURIComponent(window.location.search);
-      const params = new URLSearchParams(queryString);
-      document.getElementById("uid").append(params.get("uid"));
-    </script>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src=".././liff-config.js"></script>
     <script>
-      async function getUserProfile() {
+      /*async function getUserProfile() {
         const profile = await liff.getProfile()
         document.getElementById("userId").append(profile.userId)
+      }*/
+      function getParams(){
+        // Query Params
+      const queryString = decodeURIComponent(window.location.search);
+      const params = new URLSearchParams(queryString);
+      document.getElementById("uid").append(params.get("uid"));
       }
+
       async function main() {
         await liff.init({ liffId: LiffID() })
         if (liff.isLoggedIn()) {
-          getUserProfile()
+          //getUserProfile()
+          getParams()
         }else{
           liff.login({ redirectUri: LiffURL("bot/functions/src/userVertify.html") })
         }
