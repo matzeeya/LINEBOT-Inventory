@@ -17,7 +17,6 @@
         document.getElementById("userId").append(profile.userId)
       }
       async function main() {
-        //var config = require('../liff-config.js');
         await liff.init({ liffId: LiffID() })
         if (liff.isLoggedIn()) {
           getUserProfile()
