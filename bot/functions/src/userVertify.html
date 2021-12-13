@@ -28,14 +28,14 @@
         const profile = await liff.getProfile()
         document.getElementById("userId").append(profile.userId)
       }*/
-      function getParams(){
-        // Query Params
-      const queryString = decodeURIComponent(window.location.search);
-      const params = new URLSearchParams(queryString);
-      document.getElementById("uid").append(params.get("uid"));
-      }
+    function getParams(){
+      // Query Params
+    const queryString = decodeURIComponent(window.location.search);
+    const params = new URLSearchParams(queryString);
+    document.getElementById("uid").append(params.get("uid"));
+    }
 
-      async function sendApprove() {
+    async function sendApprove() {
       if(liff.getContext().type !== "none"){
         await liff.sendMessages([
           {
@@ -44,6 +44,7 @@
           }
         ])
         alert("Message sent approve")
+        liff.closeWindow()
       }
     }
 
@@ -56,20 +57,20 @@
           }
         ])
         alert("Message sent reject")
+        liff.closeWindow()
       }
     }
 
-
-      async function main() {
-        await liff.init({ liffId: LiffID() })
-        if (liff.isLoggedIn()) {
-          //getUserProfile()
-          getParams()
-        }else{
-          liff.login({ redirectUri: LiffURL("bot/functions/src/userVertify.html") })
-        }
+    async function main() {
+      await liff.init({ liffId: LiffID() })
+      if (liff.isLoggedIn()) {
+        //getUserProfile()
+        getParams()
+      }else{
+        liff.login({ redirectUri: LiffURL("bot/functions/src/userVertify.html") })
       }
-      main()
+    }
+    main()
     </script>
   </body>
 </html>
