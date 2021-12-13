@@ -3,9 +3,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vertify</title>
+    <style>
+      .rotate90 {
+          -webkit-transform: rotate(90deg);
+          -moz-transform: rotate(90deg);
+          -o-transform: rotate(90deg);
+          -ms-transform: rotate(90deg);
+          transform: rotate(-90deg);
+      }
+    </style>
   </head>
   <body>
     <p id="uid"><b>uid:</b> </p>
+    <p><b>Selfie:</b> <img id="urlSelfie" src="https://bit.ly/3oLudFH"></p>
+    <p><b>Personal id card:</b> <img id="urlPCard" src="https://bit.ly/3lQDE4T" class="rotate90"></p>
+
     <!--<p id="userId"><b>Id:</b> </p>-->
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src=".././liff-config.js"></script>
