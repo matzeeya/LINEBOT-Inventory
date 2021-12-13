@@ -10,7 +10,7 @@
     <script>
     </script>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <!--<script src="../liff-config.js"></script>-->
+    <script src=".././liff-config.js"></script>
     <script>
       async function getUserProfile() {
         const profile = await liff.getProfile()
@@ -18,11 +18,11 @@
       }
       async function main() {
         //var config = require('../liff-config.js');
-        await liff.init({ liffId: "1656639524-loJjd1JV" })
+        await liff.init({ liffId: LiffID() })
         if (liff.isLoggedIn()) {
           getUserProfile()
         }else{
-          liff.login({ redirectUri: `https://liff.line.me/1656639524-loJjd1JV/bot/functions/src/userVertify.html` })
+          liff.login({ redirectUri: LiffURL("bot/functions/src/userVertify.html") })
         }
       }
       main()
