@@ -17,6 +17,8 @@
     <p id="uid"><b>uid:</b> </p>
     <p><b>Selfie:</b> <img id="urlSelfie" src="https://bit.ly/3oLudFH"></p>
     <p><b>Personal id card:</b> <img id="urlPCard" src="https://bit.ly/3lQDE4T" class="rotate90"></p>
+    <button id="btnApprove" onclick="sendApprove()">อนุมัติ</button>
+    <button id="btnReject" onclick="sendReject()">ปฏิเสธ</button>
 
     <!--<p id="userId"><b>Id:</b> </p>-->
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
@@ -32,6 +34,31 @@
       const params = new URLSearchParams(queryString);
       document.getElementById("uid").append(params.get("uid"));
       }
+
+      async function sendApprove() {
+      if(liff.getContext().type !== "none"){
+        await liff.sendMessages([
+          {
+            "type" : "text",
+            "text" : "ecpe-software@nu.ac.th"
+          }
+        ])
+        alert("Message sent approve")
+      }
+    }
+
+    async function sendReject() {
+      if(liff.getContext().type !== "none"){
+        await liff.sendMessages([
+          {
+            "type" : "text",
+            "text" : "ปฏิเสธ"
+          }
+        ])
+        alert("Message sent reject")
+      }
+    }
+
 
       async function main() {
         await liff.init({ liffId: LiffID() })
