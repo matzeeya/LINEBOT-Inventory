@@ -46,6 +46,7 @@
     //errorPlease()
   </script>
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script src="./bot/functions/liff-config.js"></script>
   <script>
     function createUniversalLink(){
       const link1 = liff.permanentLink.createUrl()
@@ -140,12 +141,7 @@
       }
     }
 
-    function liffID(){
-      return "1656639524-loJjd1JV"
-    }
-
     async function main() {
-      //var config = require('./bot/functions/liff-config.js');
       liff.ready.then(() => {
         document.getElementById("isLoggedIn").append(liff.isLoggedIn())
         if(!liff.isLoggedIn()){
@@ -158,7 +154,7 @@
           createUniversalLink()
         }
       })
-      await liff.init({ liffId: liffID() })
+      await liff.init({ liffId: LiffID() })
     }
     main()
   </script>

@@ -18,6 +18,7 @@
       document.getElementById("param").append(params.get("param"));
     </script>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src=".././bot/functions/liff-config.js"></script>
     <script>
       async function getUserProfile() {
         const profile = await liff.getProfile()
@@ -28,12 +29,11 @@
         document.getElementById("decodedIDToken").append(liff.getDecodedIDToken().email)
       }
       async function main() {
-        //var config = require('../bot/functions/liff-config.js');
-        await liff.init({ liffId: "1656639524-loJjd1JV" })
+        await liff.init({ liffId: LiffID() })
         if (liff.isLoggedIn()) {
           getUserProfile()
         } else {
-          liff.login({ redirectUri: `https://liff.line.me/1656639524-loJjd1JV/path/` })
+          liff.login({ redirectUri: LiffURL("path/") })
         }
       }
       main()
