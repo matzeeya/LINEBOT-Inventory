@@ -10,8 +10,8 @@
   </script>
 </head>
 <body>
-  <p id="Hello"><b>: </b> </p>
-  <p id="isLoggedIn"><b>isLoggedIn:</b> </p>
+  <p id="Hello"><b>กรุณารอสักครู่... </b> </p>
+  <!--<p id="isLoggedIn"><b>isLoggedIn:</b> </p>-->
 
   <!--<script src="js/vconsole.min.js"></script>-->
   <script>
@@ -22,7 +22,7 @@
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script src="./bot/functions/liff-config.js"></script>
   <script>
-    async function getFriendship() {
+    /*async function getFriendship() {
       const friend = await liff.getFriendship()
       document.getElementById("friendship").append(friend.friendFlag)
       if(!friend.friendFlag){
@@ -30,22 +30,22 @@
           window.location = "https://line.me/R/ti/p/@216agpgm"
         }
       }
-    }
+    }*/
 
-    function Hello() {
+    /*function Hello() {
       document.getElementById("Hello").innerHTML = "กรุณารอสักครู่..."
-    }
+    }*/
 
     async function main() {
-      liff.ready.then(() => {
-        document.getElementById("isLoggedIn").append(liff.isLoggedIn())
+      //liff.ready.then(() => {
+        /*document.getElementById("isLoggedIn").append(liff.isLoggedIn())
         if(!liff.isLoggedIn()){
           liff.login()
         }else{
-          getFriendship()
-          Hello()
-        }
-      })
+          getFriendship()*/
+          //Hello()
+        //}
+      //})
       await liff.init({ liffId: LiffID() })
     }
     main()
