@@ -19,8 +19,9 @@
             "type" : "text",
             "text" : code.value
           }
-        ])
-        liff.closeWindow()
+        ]).then(function (){
+          liff.closeWindow();
+        })
       });
     }
 
