@@ -10,19 +10,14 @@
     <button id="btnCommit" onclick="sendCommit()">ถูกต้อง</button>
     <button id="btnEdit" onclick="sendEdit()">แก้ไข</button>
 
-    <!--<p id="userId"><b>Id:</b> </p>-->
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src=".././liff-config.js"></script>
     <script>
-      /*async function getUserProfile() {
-        const profile = await liff.getProfile()
-        document.getElementById("userId").append(profile.userId)
-      }*/
+    // Query Params
     function getParams(){
-      // Query Params
     const queryString = decodeURIComponent(window.location.search);
     const params = new URLSearchParams(queryString);
-    document.getElementById("uid").append(params.get("uid"));
+    document.getElementById("asset_id").append(params.get("asset"));
     }
 
     async function sendCommit() {
@@ -33,7 +28,6 @@
             "text" : "บันทึกข้อมูลสำเร็จ"
           }
         ])
-        //alert("Message sent approve")
         liff.closeWindow()
       }
     }
@@ -46,7 +40,6 @@
             "uri" : "http://example.com/page/123"
           }
         ])
-        //alert("Message sent reject")
         liff.closeWindow()
       }
     }
@@ -54,7 +47,6 @@
     async function main() {
       await liff.init({ liffId: LiffID() })
       if (liff.isLoggedIn()) {
-        //getUserProfile()
         getParams()
       }else{
         liff.login({ redirectUri: LiffURL("bot/functions/src/assetDetail.html") })
