@@ -35,13 +35,11 @@
     }
 
     async function sendEdit() {
-      if(liff.getContext().type !== "none"){
         liff.openWindow({
           url: "https://line.me"
         }).then(function (){
           liff.closeWindow();
         })
-      }
     }
 
     async function main() {
