@@ -28,8 +28,12 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
       }
     } else {
       //console.log("text: "+ event.message.text);
-      if(event.message.text === "ตรวจสอบผู้ใช้งาน"){
+      var msg = event.message.text.split(" ");
+      console.log(msg[0]);
+      if(msg[0] === "ตรวจสอบผู้ใช้งาน"){
         users.userVertify(req,res);
+      }else if(msg[0] === "หมายเลขครุภัณฑ์"){
+        await reply(event.replyToken, { type: "text", text: "หมายเลขครุภัณฑ์คือ " + msg[1]});
       }else{
         postToDialogflow(req);
         //processToOtherUrl(req);
