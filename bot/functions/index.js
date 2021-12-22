@@ -8,6 +8,7 @@ const region = 'asia-northeast1';
 //const rp = require('request-promise-native');
 var photo = require('./myModules/uploadPhoto');
 var users = require('./myModules/userResgister');
+var asset = require('./myModules/checkedInventory');
 
 const LINE_MESSAGING_API = "https://api.line.me/v2/bot";
 const LINE_HEADER = {
@@ -28,12 +29,13 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
       }
     } else {
       //console.log("text: "+ event.message.text);
-      var msg = event.message.text.split(" ");
-      console.log(msg[0]);
+      var msg = event.message.text.split(": ");
+      //console.log(msg[0]);
       if(msg[0] === "ตรวจสอบผู้ใช้งาน"){
         users.userVertify(req,res);
-      }else if(msg[0] === "หมายเลขครุภัณฑ์"){
-        await reply(event.replyToken, { type: "text", text: "หมายเลขครุภัณฑ์คือ " + msg[1]});
+      }else if(msg[0] === "หมายเลขครุภัณฑ์" && msg[1] !== 'null'){
+        asset.chkInventory(req, res, msg[1]);
+        //await reply(event.replyToken, { type: "text", text: "หมายเลขครุภัณฑ์คือ " + msg[1]});
       }else{
         postToDialogflow(req);
         //processToOtherUrl(req);

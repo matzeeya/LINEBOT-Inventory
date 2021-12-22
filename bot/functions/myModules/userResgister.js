@@ -41,8 +41,7 @@ async function userVertify(req, res) {
   /*{
     type: "message",
     label: "ดูรายละเอียด",
-    text: "expe-software@nu.ac.th"
-    
+    text: "ecpe-software@nu.ac.th"
   }*/
 };
 

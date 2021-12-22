@@ -2,23 +2,13 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vertify</title>
-    <style>
-      .rotate90 {
-          -webkit-transform: rotate(90deg);
-          -moz-transform: rotate(90deg);
-          -o-transform: rotate(90deg);
-          -ms-transform: rotate(90deg);
-          transform: rotate(-90deg);
-      }
-    </style>
+    <title>รายละเอียด</title>
   </head>
   <body>
-    <p id="uid"><b>uid:</b> </p>
-    <p><b>Selfie:</b> <img id="urlSelfie" src="https://bit.ly/3oLudFH"></p>
-    <p><b>Personal id card:</b> <img id="urlPCard" src="https://bit.ly/3lQDE4T" class="rotate90"></p>
-    <button id="btnApprove" onclick="sendApprove()">อนุมัติ</button>
-    <button id="btnReject" onclick="sendReject()">ปฏิเสธ</button>
+    <p><b>รูป:</b> <img id="urlAsset" src="https://www.pngfind.com/pngs/m/337-3376455_brown-cony-sweet-love-line-brown-and-cony.png"></p>
+    <p id="asset_id"><b>หมายเลขครุภัณฑ์:</b> </p>
+    <button id="btnCommit" onclick="sendCommit()">ถูกต้อง</button>
+    <button id="btnEdit" onclick="sendEdit()">แก้ไข</button>
 
     <!--<p id="userId"><b>Id:</b> </p>-->
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
@@ -35,28 +25,28 @@
     document.getElementById("uid").append(params.get("uid"));
     }
 
-    async function sendApprove() {
+    async function sendCommit() {
       if(liff.getContext().type !== "none"){
         await liff.sendMessages([
           {
             "type" : "text",
-            "text" : "อีเมล: ecpe-software@nu.ac.th"
+            "text" : "บันทึกข้อมูลสำเร็จ"
           }
         ])
-        alert("Message sent approve")
+        //alert("Message sent approve")
         liff.closeWindow()
       }
     }
 
-    async function sendReject() {
+    async function sendEdit() {
       if(liff.getContext().type !== "none"){
         await liff.sendMessages([
           {
-            "type" : "text",
-            "text" : "ปฏิเสธ"
+            "type" : "uri",
+            "uri" : "http://example.com/page/123"
           }
         ])
-        alert("Message sent reject")
+        //alert("Message sent reject")
         liff.closeWindow()
       }
     }
@@ -67,7 +57,7 @@
         //getUserProfile()
         getParams()
       }else{
-        liff.login({ redirectUri: LiffURL("bot/functions/src/userVertify.html") })
+        liff.login({ redirectUri: LiffURL("bot/functions/src/assetDetail.html") })
       }
     }
     main()

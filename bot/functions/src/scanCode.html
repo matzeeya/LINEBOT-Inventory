@@ -13,11 +13,11 @@
     <script>
 
     async function QRCodeReader() {
-      await liff.scanCode().then(function (code){
+      await liff.scanCodeV2().then(function (code){
         liff.sendMessages([
           {
             "type" : "text",
-            "text" : "หมายเลขครุภัณฑ์ " + code.value
+            "text" : "หมายเลขครุภัณฑ์: " + code.value
           }
         ]).then(function (){
           liff.closeWindow();
