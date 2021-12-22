@@ -42,9 +42,10 @@
             "type" : "text",
             "text" : "อีเมล: ecpe-software@nu.ac.th"
           }
-        ])
-        alert("Message sent approve")
-        liff.closeWindow()
+        ]).then(function (){
+          alert("Message sent reject");
+          liff.closeWindow();
+        })
       }
     }
 
@@ -55,9 +56,10 @@
             "type" : "text",
             "text" : "ปฏิเสธ"
           }
-        ])
-        alert("Message sent reject")
-        liff.closeWindow()
+        ]).then(function (){
+          alert("Message sent reject");
+          liff.closeWindow();
+        })
       }
     }
 

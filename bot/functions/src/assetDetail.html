@@ -28,20 +28,19 @@
             "type" : "text",
             "text" : "บันทึกข้อมูลสำเร็จ"
           }
-        ])
-        liff.closeWindow()
+        ]).then(function (){
+          liff.closeWindow();
+        })
       }
     }
 
     async function sendEdit() {
       if(liff.getContext().type !== "none"){
-        await liff.sendMessages([
-          {
-            "type" : "uri",
-            "uri" : "http://example.com/page/123"
-          }
-        ])
-        liff.closeWindow()
+        liff.openWindow({
+          url: "https://line.me"
+        }).then(function (){
+          liff.closeWindow();
+        })
       }
     }
 

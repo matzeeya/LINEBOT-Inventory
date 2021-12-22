@@ -3,7 +3,9 @@ const config = {
   serviceAccountPath: './serviceAccount.json', //firebase
   databaseURL: 'xxx.firebaseio.com', //firebase
   bitly: 'xxx', // bitly token
-  dialogflow: 'xxx' // dialogflow webhook
+  dialogflow: 'xxx', // dialogflow webhook
+  LIFF_URL: 'xxx', // LIFF URL
+  LIFF_ID: 'xxx' // LIFF ID
 };
 
 module.exports = config;
