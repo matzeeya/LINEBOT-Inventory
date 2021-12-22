@@ -17,7 +17,7 @@
         liff.sendMessages([
           {
             "type" : "text",
-            "text" : code.value
+            "text" : "หมายเลขครุภัณฑ์ " + code.value
           }
         ]).then(function (){
           liff.closeWindow();
@@ -27,6 +27,11 @@
 
     async function main() {
       await liff.init({ liffId: LiffID() })
+      if (liff.isLoggedIn()) {
+        QRCodeReader()
+      }else{
+        liff.login({ redirectUri: LiffURL("bot/functions/src/scanCode.html") })
+      }
     }
     main()
     </script>
