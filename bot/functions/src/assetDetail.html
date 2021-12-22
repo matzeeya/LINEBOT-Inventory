@@ -15,9 +15,10 @@
     <script>
     // Query Params
     function getParams(){
-    const queryString = decodeURIComponent(window.location.search);
-    const params = new URLSearchParams(queryString);
-    document.getElementById("asset_id").append(params.get("asset"));
+      const queryString = decodeURIComponent(window.location.search);
+      const params = new URLSearchParams(queryString);
+      const decodeAsset = atob(params.get("asset"))
+      document.getElementById("asset_id").append(decodeAsset);
     }
 
     async function sendCommit() {
