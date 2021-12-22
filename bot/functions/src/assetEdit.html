@@ -2,15 +2,15 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>รายละเอียด</title>
+    <title>แก้ไข</title>
   </head>
   <body>
     <p><b>รูป:</b> <img id="urlAsset" src="https://www.pngfind.com/pngs/m/337-3376455_brown-cony-sweet-love-line-brown-and-cony.png" width="200" ></p>
     <p id="asset_id"><b>หมายเลขครุภัณฑ์:</b> </p>
     <p id="sn"><b>S/N:</b> </p>
     <p id="room"><b>สถานที่จัดเก็บ:</b> </p>
-    <button id="btnCommit" onclick="sendCommit()">ถูกต้อง</button>
-    <button id="btnEdit" onclick="sendEdit()">แก้ไข</button>
+    <p id="room"><b>สถานที่จัดเก็บปัจจุบัน:</b> </p>
+    <button id="btnSave" onclick="sendSave()">บันทึก</button>
 
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src=".././liff-config.js"></script>
@@ -23,12 +23,12 @@
       document.getElementById("asset_id").append(decodeAsset);
     }
 
-    async function sendCommit() {
+    async function sendSave() {
       if(liff.getContext().type !== "none"){
         await liff.sendMessages([
           {
             "type" : "text",
-            "text" : "บันทึกข้อมูลสำเร็จ"
+            "text" : "แก้ไขข้อมูลสำเร็จ"
           }
         ]).then(function (){
           liff.closeWindow();
@@ -36,20 +36,12 @@
       }
     }
 
-    async function sendEdit() {
-        liff.openWindow({
-          url: LiffURL("bot/functions/src/assetEdit.html?asset="+params.get("asset"))
-        }).then(function (){
-          liff.closeWindow();
-        })
-    }
-
     async function main() {
       await liff.init({ liffId: LiffID() })
       if (liff.isLoggedIn()) {
         getParams()
       }else{
-        liff.login({ redirectUri: LiffURL("bot/functions/src/assetDetail.html") })
+        liff.login({ redirectUri: LiffURL("bot/functions/src/assetEdit.html") })
       }
     }
     main()
