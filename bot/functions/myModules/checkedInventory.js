@@ -12,6 +12,7 @@ const LINE_HEADER = {
 
 async function chkInventory(req, res, asset_id) {
     const event = req.body.events[0];
+    const encodeAsset = btoa(asset_id);
     //await reply(event.replyToken, { type: "text", text: "หมายเลขครุภัณฑ์คือ " + asset_id});
     await reply(event.replyToken, { 
       type: "template",
@@ -30,7 +31,7 @@ async function chkInventory(req, res, asset_id) {
               {
                 type: "uri",
                 label: "ดูเพิ่มเติม",
-                uri: `${config.LIFF_URL}/bot/functions/src/assetDetail.html?asset=${asset_id}`
+                uri: `${config.LIFF_URL}/bot/functions/src/assetDetail.html?asset=${encodeAsset}`
               }
             ]
           }
