@@ -52,9 +52,9 @@
     }
 
     async function sendEdit(req) {
-      //console.log("url: "+LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(params.get("asset"))));
+      console.log("url: "+LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(req)));
         liff.openWindow({
-          url: "https://liff.line.me/1656639524-loJjd1JV/bot/functions/src/assetEdit.html?cache=0&asset="+btoa(req)
+          url: LiffURL("bot/functions/src/assetEdit.html?cache=0&asset="+btoa(req))
         })
     }
 
