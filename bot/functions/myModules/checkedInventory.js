@@ -31,7 +31,7 @@ async function chkInventory(req, res, asset_id) {
               {
                 type: "uri",
                 label: "ดูเพิ่มเติม",
-                uri: `${config.LIFF_URL}/bot/functions/src/assetDetail.html?asset=${encodeAsset}`
+                uri: `${config.LIFF_URL}/bot/functions/src/assetDetail.html?cache=0&asset=${encodeAsset}`
               }
             ]
           }

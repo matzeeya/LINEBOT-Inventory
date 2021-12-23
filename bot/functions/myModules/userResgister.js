@@ -30,7 +30,7 @@ async function userVertify(req, res) {
               {
                 type: "uri",
                 label: "ดูรายละเอียด",
-                uri: `${config.LIFF_URL}/bot/functions/src/userVertify.html?uid=${userId}`
+                uri: `${config.LIFF_URL}/bot/functions/src/userVertify.html?cache=0&uid=${userId}`
               }
             ]
           }
