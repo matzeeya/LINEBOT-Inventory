@@ -12,14 +12,14 @@
     <button id="btnCommit" onclick="sendCommit()">ถูกต้อง</button>
     <button id="btnEdit" onclick="sendEdit()">แก้ไข</button>
 
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src=".././liff-config.js"></script>
     <script src="../../.././js/vconsole.min.js"></script>
     <script>
       var vConsole = new VConsole()
-      console.log("Hello")
+      console.log("url: "+LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(params.get("asset"))));
       //errorPlease()
     </script>
-    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <script src=".././liff-config.js"></script>
     <script>
     // Query Params
     function getParams(){
@@ -43,7 +43,6 @@
     }
 
     async function sendEdit() {
-      console.log("url: "+LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(params.get("asset"))));
         liff.openWindow({
           url: LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(params.get("asset")))
         }).then(function (){
