@@ -17,7 +17,7 @@
     <script src="../../.././js/vconsole.min.js"></script>
     <script>
       var vConsole = new VConsole()
-      console.log("url: "+LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(params.get("asset"))));
+      console.log("url1: "+LiffURL("bot/functions/src/assetEdit.html?asset="));
       //errorPlease()
     </script>
     <script>
@@ -43,6 +43,7 @@
     }
 
     async function sendEdit() {
+      console.log("url: "+LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(params.get("asset"))));
         liff.openWindow({
           url: LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(params.get("asset")))
         }).then(function (){
