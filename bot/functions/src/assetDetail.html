@@ -43,6 +43,7 @@
     }
 
     async function sendEdit() {
+      console.log("url: "+LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(params.get("asset"))));
         liff.openWindow({
           url: LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(params.get("asset")))
         }).then(function (){
