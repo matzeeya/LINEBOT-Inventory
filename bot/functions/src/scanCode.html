@@ -11,9 +11,28 @@
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src=".././liff-config.js"></script>
     <script>
+    
+    function openWindow() {
+      liff.openWindow({
+        url: "https://line.me/R/nv/QRCodeReader"
+      })
+    }
 
     async function QRCodeReader() {
-      await liff.scanCodeV2().then(function (code){
+      await openWindow()
+      const queryString = decodeURIComponent(window.location.search)
+      const params = new URLSearchParams(queryString)
+      if(params.get("param") !== null){
+        liff.sendMessages([
+          {
+            "type" : "text",
+            "text" : "หมายเลขครุภัณฑ์: " + params.get("param")
+          }
+        ]).then(function (){
+          liff.closeWindow();
+        })
+      }
+      /*await liff.scanCodeV2().then(function (code){
         liff.sendMessages([
           {
             "type" : "text",
@@ -22,12 +41,13 @@
         ]).then(function (){
           liff.closeWindow();
         })
-      });
+      });*/
     }
 
     async function main() {
       await liff.init({ liffId: LiffID() })
       if (liff.isLoggedIn()) {
+        //openWindow()
         QRCodeReader()
       }else{
         liff.login({ redirectUri: LiffURL("bot/functions/src/scanCode.html") })
