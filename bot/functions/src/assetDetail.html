@@ -5,29 +5,38 @@
     <title>รายละเอียด</title>
   </head>
   <body>
+    <script>
+      // Query Params
+      //function getParams(){
+        const queryString = decodeURIComponent(window.location.search);
+        const params = new URLSearchParams(queryString);
+        const decodeAsset = atob(params.get("asset"))
+        document.getElementById("asset_id").append(decodeAsset);
+      //}
+      </script>
     <p><b>รูป:</b> <img id="urlAsset" src="https://www.pngfind.com/pngs/m/337-3376455_brown-cony-sweet-love-line-brown-and-cony.png" width="200" ></p>
     <p id="asset_id"><b>หมายเลขครุภัณฑ์:</b> </p>
     <p id="sn"><b>S/N:</b> </p>
     <p id="room"><b>สถานที่จัดเก็บ:</b> </p>
     <button id="btnCommit" onclick="sendCommit()">ถูกต้อง</button>
-    <button id="btnEdit" onclick="sendEdit()">แก้ไข</button>
+    <button id="btnEdit" onclick="sendEdit(decodeAsset)">แก้ไข</button>
 
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src=".././liff-config.js"></script>
     <script src="../../.././js/vconsole.min.js"></script>
     <script>
       var vConsole = new VConsole()
-      console.log("url1: "+LiffURL("bot/functions/src/assetEdit.html?asset="));
+      console.log("url1: "+LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(params.get("asset"))));
       //errorPlease()
     </script>
     <script>
     // Query Params
-    function getParams(){
+    /*function getParams(){
       const queryString = decodeURIComponent(window.location.search);
       const params = new URLSearchParams(queryString);
       const decodeAsset = atob(params.get("asset"))
       document.getElementById("asset_id").append(decodeAsset);
-    }
+    }*/
 
     async function sendCommit() {
       if(liff.getContext().type !== "none"){
@@ -42,12 +51,10 @@
       }
     }
 
-    async function sendEdit() {
+    async function sendEdit(req) {
       //console.log("url: "+LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(params.get("asset"))));
         liff.openWindow({
-          url: "https://liff.line.me/1656639524-loJjd1JV/bot/functions/src/assetEdit.html?cache=0&asset="+btoa(params.get("asset"))
-        }).then(function (){
-          liff.closeWindow()
+          url: "https://liff.line.me/1656639524-loJjd1JV/bot/functions/src/assetEdit.html?cache=0&asset="+btoa(req)
         })
     }
 
