@@ -8,8 +8,14 @@
     <p><b>รูป:</b> <img id="urlAsset" src="https://www.pngfind.com/pngs/m/337-3376455_brown-cony-sweet-love-line-brown-and-cony.png" width="200" ></p>
     <p id="asset_id"><b>หมายเลขครุภัณฑ์:</b> </p>
     <p id="sn"><b>S/N:</b> </p>
-    <p id="room"><b>สถานที่จัดเก็บ:</b> </p>
-    <p id="room_new"><b>สถานที่จัดเก็บปัจจุบัน:</b> </p>
+    <p id="roomOld"><b>สถานที่จัดเก็บ:</b> </p>
+    <p><label for="roomNew">สถานที่จัดเก็บปัจจุบัน:</label>
+      <select name="roomNew" id="roomNew">
+        <option value="null">---กรุณาระบุ---</option>
+        <option value="EE509">EE509</option>
+        <option value="EE515">EE515</option>
+      </select>
+    </p>
     <button id="btnSave" onclick="sendSave()">บันทึก</button>
 
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
