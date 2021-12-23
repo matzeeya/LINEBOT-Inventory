@@ -37,17 +37,17 @@
             "text" : "บันทึกข้อมูลสำเร็จ"
           }
         ]).then(function (){
-          liff.closeWindow();
+          liff.closeWindow()
         })
       }
     }
 
     async function sendEdit() {
-      console.log("url: "+LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(params.get("asset"))));
+      //console.log("url: "+LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(params.get("asset"))));
         liff.openWindow({
-          url: LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(params.get("asset")))
+          url: "https://liff.line.me/1656639524-loJjd1JV/bot/functions/src/assetEdit.html?cache=0&asset="+btoa(params.get("asset"))
         }).then(function (){
-          liff.closeWindow();
+          liff.closeWindow()
         })
     }
 
