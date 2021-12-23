@@ -13,7 +13,7 @@
     <script>
 
     async function QRCodeReader() {
-      await liff.scanCodeV2().then(function (code){
+      await liff.scanCode().then(function (code){
         liff.sendMessages([
           {
             "type" : "text",

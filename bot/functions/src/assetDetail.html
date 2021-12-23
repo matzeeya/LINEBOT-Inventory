@@ -7,13 +7,11 @@
   <body>
     <script>
       // Query Params
-      //function getParams(){
-        const queryString = decodeURIComponent(window.location.search);
-        const params = new URLSearchParams(queryString);
-        const decodeAsset = atob(params.get("asset"))
-        document.getElementById("asset_id").append(decodeAsset);
-      //}
-      </script>
+      const queryString = decodeURIComponent(window.location.search);
+      const params = new URLSearchParams(queryString);
+      const decodeAsset = atob(params.get("asset"))
+      document.getElementById("asset_id").append(decodeAsset);
+    </script>
     <p><b>รูป:</b> <img id="urlAsset" src="https://www.pngfind.com/pngs/m/337-3376455_brown-cony-sweet-love-line-brown-and-cony.png" width="200" ></p>
     <p id="asset_id"><b>หมายเลขครุภัณฑ์:</b> </p>
     <p id="sn"><b>S/N:</b> </p>
@@ -26,7 +24,7 @@
     <script src="../../.././js/vconsole.min.js"></script>
     <script>
       var vConsole = new VConsole()
-      //console.log("url1: "+LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(params.get("asset"))));
+      console.log("Hello")
       //errorPlease()
     </script>
     <script>
@@ -44,11 +42,10 @@
       }
     }
 
-    async function sendEdit(req) {
-      console.log("url: "+LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(req)));
-        liff.openWindow({
-          url: LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(req))
-        })
+    async function sendEdit(aid) {
+      liff.openWindow({
+        url: LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(aid))
+      })
     }
 
     async function main() {
