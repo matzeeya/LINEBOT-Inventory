@@ -26,17 +26,10 @@
     <script src="../../.././js/vconsole.min.js"></script>
     <script>
       var vConsole = new VConsole()
-      console.log("url1: "+LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(params.get("asset"))));
+      //console.log("url1: "+LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(params.get("asset"))));
       //errorPlease()
     </script>
     <script>
-    // Query Params
-    /*function getParams(){
-      const queryString = decodeURIComponent(window.location.search);
-      const params = new URLSearchParams(queryString);
-      const decodeAsset = atob(params.get("asset"))
-      document.getElementById("asset_id").append(decodeAsset);
-    }*/
 
     async function sendCommit() {
       if(liff.getContext().type !== "none"){
@@ -54,7 +47,7 @@
     async function sendEdit(req) {
       console.log("url: "+LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(req)));
         liff.openWindow({
-          url: LiffURL("bot/functions/src/assetEdit.html?cache=0&asset="+btoa(req))
+          url: LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(req))
         })
     }
 
