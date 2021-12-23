@@ -33,7 +33,7 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
       //console.log(msg[0]);
       if(msg[0] === "ตรวจสอบผู้ใช้งาน"){
         users.userVertify(req,res);
-      }else if(msg[0] === "หมายเลขครุภัณฑ์" && msg[1] !== null){
+      }else if(msg[0] === "หมายเลขครุภัณฑ์" && msg[1] !== "null"){
         asset.chkInventory(req, res, msg[1]);
         //await reply(event.replyToken, { type: "text", text: "หมายเลขครุภัณฑ์คือ " + msg[1]});
       }else{

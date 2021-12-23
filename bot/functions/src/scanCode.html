@@ -12,14 +12,35 @@
     <script src=".././liff-config.js"></script>
     <script>
     
-    function openWindow() {
+    /*function openWindow() {
       liff.openWindow({
         url: "https://line.me/R/nv/QRCodeReader"
-      })
-    }
+      }).then(function (code){
+        liff.sendMessages([
+          {
+            "type" : "text",
+            "text" : "หมายเลขครุภัณฑ์: " + code.value
+          }
+        ]).then(function (){
+          liff.closeWindow();
+        })
+      });
+    }*/
 
     async function QRCodeReader() {
-      await openWindow()
+      liff.openWindow({
+        url: "https://line.me/R/nv/QRCodeReader"
+      }).then(function (code){
+        liff.sendMessages([
+          {
+            "type" : "text",
+            "text" : "หมายเลขครุภัณฑ์: " + code.value
+          }
+        ]).then(function (){
+          liff.closeWindow();
+        })
+      });
+      /*await openWindow()
       const queryString = decodeURIComponent(window.location.search)
       const params = new URLSearchParams(queryString)
       if(params.get("param") !== null){
@@ -31,7 +52,7 @@
         ]).then(function (){
           liff.closeWindow();
         })
-      }
+      }*/
       /*await liff.scanCodeV2().then(function (code){
         liff.sendMessages([
           {
