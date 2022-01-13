@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Reader View Inventory</title>
+
+  </head>
+  <body>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src=".././liff-config.js"></script>
+    <script>
+
+    async function QRCodeReader() {
+      await liff.scanCode().then(function (code){
+        liff.sendMessages([
+          {
+            "type" : "text",
+            "text" : "ข้อมูลครุภัณฑ์: " + code.value
+          }
+        ]).then(function (){
+          liff.closeWindow();
+        })
+      });
+    }
+
+    async function main() {
+      await liff.init({ liffId: LiffID() })
+      if (liff.isLoggedIn()) {
+        QRCodeReader()
+      }else{
+        liff.login({ redirectUri: LiffURL("bot/functions/src/viewData.html?") })
+      }
+    }
+    main()
+    </script>
+  </body>
+</html>

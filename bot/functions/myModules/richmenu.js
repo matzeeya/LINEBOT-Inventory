@@ -94,7 +94,6 @@ async function userMenu() {
       }
     ]
   });
-  return res.end();
 };
 
 const menu = (payload) => {
