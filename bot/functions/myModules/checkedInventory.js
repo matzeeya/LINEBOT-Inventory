@@ -91,7 +91,7 @@ async function chkInventory(req, res, asset_id) {
         }
     });
     return res.end();
-  };
+  }
   
   const reply = (replyToken, payload) => {
     axios({

@@ -59,7 +59,7 @@ async function uploadPhoto(req, res){
     });
   }
   return res.end();
-};
+}
 
 const reply = (replyToken, payload) => {
   axios({

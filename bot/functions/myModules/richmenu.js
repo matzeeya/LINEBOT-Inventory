@@ -28,8 +28,8 @@ async function userMenu() {
           "height": 801
         },
         "action": {
-          "type": "message",
-          "text": "Action 1"
+          "type": "uri",
+          "uri": "https://liff.line.me/1656639524-loJjd1JV/bot/functions/src/scanCode.html"
         }
       },
       {
@@ -89,19 +89,19 @@ async function userMenu() {
         },
         "action": {
           "type": "message",
-          "text": "Action 6"
+          "text": "ติดต่อแอดมิน"
         }
       }
     ]
   });
-};
+}
 
 const menu = (payload) => {
   axios({
-    method: "post",
-    url: `${LINE_MESSAGING_API}/richmenu`,
-    headers: LINE_HEADER,
-    body: JSON.stringify({payload})
+    Headers: LINE_HEADER,
+    Endpoint: `${LINE_MESSAGING_API}/richmenu`,
+    Method: "post",
+    Body: JSON.stringify({payload})
   })
 };
 

@@ -1,5 +1,7 @@
 'use strict';
 const functions = require('firebase-functions')
+const request = require("request-promise");
+
 // สำหรับ network requests
 const axios = require('axios');
 // เชื่อมต่อ firebase
@@ -9,7 +11,7 @@ const region = 'asia-northeast1';
 var photo = require('./myModules/uploadPhoto');
 var users = require('./myModules/userResgister');
 var asset = require('./myModules/checkedInventory');
-var richMenu = require('./myModules/richmenu');
+//var richMenu = require('./myModules/richmenu');
 
 const LINE_MESSAGING_API = "https://api.line.me/v2/bot";
 const LINE_HEADER = {
@@ -18,8 +20,27 @@ const LINE_HEADER = {
 };
 
 exports.fulfillment = functions.region(region).https.onRequest(async(req, res) => {
+
+  res.header('Access-Control-Allow-Origin', '*')
+  let event = req.body.events[0];
+  let menuDefault = 'richmenu-a26579f0cace6185b1471cf2ccb6cef4';
+  let menuUser = 'richmenu-c72f84074036d7771f13a4c9bc8477d9';
+  let menuStaff = 'richmenu-ca3292d5958a11cf4fa31fc449060143';
+  //console.log("uid: "+event.source.userId);
+
+  if (event.source.userId !== undefined) {
+    let usrType="staff"
+    switch (usrType) {
+      case 'none': link(event.source.userId, menuDefault); break
+      case 'user': link(event.source.userId, menuUser); break
+      case 'staff': link(event.source.userId, menuStaff); break
+    }
+  } else {
+    link("all", menuDefault)
+  }
+
   if(req.method === "POST"){
-    let event = req.body.events[0];
+    //let event = req.body.events[0];
     //console.log("userID: "+ event.source.userId); //get userid
     //console.log("type: "+ event.message.type);
     if(event.message.type !== "text"){
@@ -37,8 +58,8 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
       }else if(msg[0] === "หมายเลขครุภัณฑ์" && msg[1] !== "null"){
         asset.chkInventory(req, res, msg[1]);
         //await reply(event.replyToken, { type: "text", text: "หมายเลขครุภัณฑ์คือ " + msg[1]});
-      }else if(msg[0] === "เมนู"){
-        richMenu.userMenu();
+      //}else if(msg[0] === "เมนู"){
+        //richMenu.userMenu();
       }else{
         postToDialogflow(req);
         //processToOtherUrl(req);
@@ -68,6 +89,13 @@ const postToDialogflow = payloadRequest => {
     method: "post",
     data: payloadRequest.body
   })
+}
+
+const link = async (uid, richMenuId) => {
+  await request.post({
+    uri: `https://api.line.me/v2/bot/user/${uid}/richmenu/${richMenuId}`,
+    headers: { Authorization: `Bearer ${config.accessToken}` }
+  });
 }
 
 /*const processToOtherUrl =function(payloadRequest){

@@ -43,7 +43,7 @@ async function userVertify(req, res) {
     label: "ดูรายละเอียด",
     text: "ecpe-software@nu.ac.th"
   }*/
-};
+}
 
 const reply = (replyToken, payload) => {
   axios({
