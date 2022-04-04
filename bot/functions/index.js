@@ -26,14 +26,18 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
   let menuDefault = 'richmenu-a26579f0cace6185b1471cf2ccb6cef4';
   let menuUser = 'richmenu-c72f84074036d7771f13a4c9bc8477d9';
   let menuStaff = 'richmenu-ca3292d5958a11cf4fa31fc449060143';
+  let menuAdmin = 'richmenu-4d0db5a336cb80925f9d9b38cbdacdfa';
   //console.log("uid: "+event.source.userId);
 
   if (event.source.userId !== undefined) {
     let usrType="staff"
-    switch (usrType) {
-      case 'none': link(event.source.userId, menuDefault); break
-      case 'user': link(event.source.userId, menuUser); break
-      case 'staff': link(event.source.userId, menuStaff); break
+    if(usrType !== undefined){
+      switch (usrType) {
+        case 'none': link(event.source.userId, menuDefault); break
+        case 'user': link(event.source.userId, menuUser); break
+        case 'staff': link(event.source.userId, menuStaff); break
+        case 'admin': link(event.source.userId, menuAdmin); break
+      }
     }
   } else {
     link("all", menuDefault)
