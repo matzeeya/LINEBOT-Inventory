@@ -29,7 +29,7 @@ async function userMenu() {
         },
         "action": {
           "type": "uri",
-          "uri": "https://liff.line.me/1656639524-loJjd1JV/bot/functions/src/scanCode.html"
+          "uri": "https://liff.line.me/1656639524-loJjd1JV/bot/functions/src/viewData.html"
         }
       },
       {

@@ -11,7 +11,9 @@ const region = 'asia-northeast1';
 var photo = require('./myModules/uploadPhoto');
 var users = require('./myModules/userResgister');
 var asset = require('./myModules/checkedInventory');
-//var richMenu = require('./myModules/richmenu');
+
+//richmenu
+//var RichMenuDefault = require('./RichMenu/default.json');
 
 const LINE_MESSAGING_API = "https://api.line.me/v2/bot";
 const LINE_HEADER = {
@@ -21,22 +23,39 @@ const LINE_HEADER = {
 
 exports.fulfillment = functions.region(region).https.onRequest(async(req, res) => {
 
+  //console.log("json: "+RichMenuDefault.name)
+
   res.header('Access-Control-Allow-Origin', '*')
+
+  //menu(RichMenuDefault);
   let event = req.body.events[0];
-  let menuDefault = 'richmenu-a26579f0cace6185b1471cf2ccb6cef4';
-  let menuUser = 'richmenu-c72f84074036d7771f13a4c9bc8477d9';
-  let menuStaff = 'richmenu-ca3292d5958a11cf4fa31fc449060143';
-  let menuAdmin = 'richmenu-4d0db5a336cb80925f9d9b38cbdacdfa';
+  let menuDefault = 'richmenu-d34defac514589520c9f6ac5b4c3058e';
+  let menuUser = 'richmenu-488095112fd3da2c78f0c4e9262940e4';
+  let menuStaff = 'richmenu-d301b36c64e734c57efc8883f33b97fe';
+  let menuAdminPage1 = 'richmenu-91649aecd18485c6509c544c701dafef';
+  let menuAdminPage2 = 'richmenu-379bd5ef31638af5ef9891fa2f8e77e3';
   //console.log("uid: "+event.source.userId);
 
-  if (event.source.userId !== undefined) {
-    let usrType="staff"
+  let uid = config.uid;
+  //let uid = "undefined";
+  if (uid !== undefined) {
+    let usrType="admin"
     if(usrType !== undefined){
-      switch (usrType) {
-        case 'none': link(event.source.userId, menuDefault); break
-        case 'user': link(event.source.userId, menuUser); break
-        case 'staff': link(event.source.userId, menuStaff); break
-        case 'admin': link(event.source.userId, menuAdmin); break
+      if(usrType === "admin"){
+        //console.log("type: "+event.type);
+        //console.log(" data: "+event.message.text);
+        switch (event.message.text) {
+          case 'BackPage1': link(event.source.userId, menuAdminPage1); break
+          case 'NextPage2': link(event.source.userId, menuAdminPage2); break
+          default: link(event.source.userId, menuAdminPage1); 
+        }
+
+      }else{
+        switch (usrType) {
+          case 'none': link(event.source.userId, menuDefault); break
+          case 'user': link(event.source.userId, menuUser); break
+          case 'staff': link(event.source.userId, menuStaff); break
+        }
       }
     }
   } else {
@@ -44,7 +63,7 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
   }
 
   if(req.method === "POST"){
-    //let event = req.body.events[0];
+    let event = req.body.events[0];
     //console.log("userID: "+ event.source.userId); //get userid
     //console.log("type: "+ event.message.type);
     if(event.message.type !== "text"){
@@ -62,8 +81,6 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
       }else if(msg[0] === "หมายเลขครุภัณฑ์" && msg[1] !== "null"){
         asset.chkInventory(req, res, msg[1]);
         //await reply(event.replyToken, { type: "text", text: "หมายเลขครุภัณฑ์คือ " + msg[1]});
-      //}else if(msg[0] === "เมนู"){
-        //richMenu.userMenu();
       }else{
         postToDialogflow(req);
         //processToOtherUrl(req);
@@ -97,31 +114,15 @@ const postToDialogflow = payloadRequest => {
 
 const link = async (uid, richMenuId) => {
   await request.post({
-    uri: `https://api.line.me/v2/bot/user/${uid}/richmenu/${richMenuId}`,
+    uri: `${LINE_MESSAGING_API}/user/${uid}/richmenu/${richMenuId}`,
     headers: { Authorization: `Bearer ${config.accessToken}` }
   });
 }
 
-/*const processToOtherUrl =function(payloadRequest){
-  console.log('processToOtherUrl');
-  
-  payloadRequest.headers.host = "dialogflow.cloud.google.com"
-    var options = {
-      method: 'POST',
-      uri: config.dialogflow,
-      headers: payloadRequest.headers,
-      body: payloadRequest.body,
-      json: true // Automatically stringifies the body to JSON
-  };
-
-    return rp( options ).then( data => {
-      //console.log(data);
-      //JSON.stringify(data);
-      console.log('OK Data');
-      console.log(data);
-    }).catch(function (err) {
-      // POST failed...
-      console.log('OK Error');
-      console.log(err);
-    });
+/*const menu = async (payload) => {
+  await request.post({
+    uri: `${LINE_MESSAGING_API}/richmenu`,
+    headers: { Authorization: `Bearer ${config.accessToken}` },
+    body: JSON.stringify({payload})
+  });
 }*/
