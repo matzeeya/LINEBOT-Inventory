@@ -29,32 +29,32 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
   const menu = firestore.collection('richMenu')
   const userRegister = firestore.collection('userRegister')
   userRegister.get().then(snapshot => {
-    snapshot.forEach(doc => {
-      if (doc.data()){
-        if (doc.id !== undefined) {
-          if(doc.id === event.source.userId){
-            menu.get().then(m => {
-              m.forEach(d => {
-                if (d.data()){
-                  if(d.id === doc.data().type){
-                    if(d.id === "admin"){
+    snapshot.forEach(uid => {
+      if(uid.data()){
+        if(uid.id !== undefined) {
+          if(uid.id === event.source.userId){
+            menu.get().then(snapmenu => {
+              snapmenu.forEach(richmenu => {
+                if (richmenu.data()){
+                  if(richmenu.id === uid.data().type){ //ถ้า id ของ richmenu เท่ากับ type ของ user
+                    if(richmenu.id === "admin"){ // ถ้า type เท่ากับ admin
                       switch (event.message.text) {
-                        case 'BackPage1': link(doc.id, d.data().richMenuId); break
-                        case 'NextPage2': link(doc.id, d.data().richMenuId2); break
-                        default: link(doc.id, d.data().richMenuId); 
+                        case 'BackPage1': link(uid.id, richmenu.data().richMenuId); break
+                        case 'NextPage2': link(uid.id, richmenu.data().richMenuId2); break
+                        default: link(uid.id, richmenu.data().richMenuId); 
                       }
                     }else{
-                      link(doc.id, d.data().richMenuId);
+                      link(uid.id, richmenu.data().richMenuId); // ถ้า type ไม่ใช่ admin ให้ดึง richmenuid มาแสดงตาม type ได้เลย
                     }
-                  }
+                  }// end เช็ค ถ้า id ของ richmenu เท่ากับ type ของ user
                 }
               })
-            })
-          }
-        }
-      }
+            })//forEach richMenu วนลูป list menu
+          }//if(uid.id === event.source.userId)
+        }//if(uid.id !== undefined)
+      }//if(uid.data())
     })
-  })
+  })//forEach userRegister วนลูปหา user
 
   if(req.method === "POST"){
     //console.log("type: "+ event.message.type);
