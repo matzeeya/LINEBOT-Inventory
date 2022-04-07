@@ -1,0 +1,16 @@
+const firebase = require("firebase/compat/app")
+require("firebase/compat/firestore")
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "xxx",
+  authDomain: "xxx.firebaseapp.com",
+  projectId: "xxx",
+  storageBucket: "xxx.appspot.com",
+  messagingSenderId: "xxx",
+  appId: "xxx"
+};
+// Initialize Firebase
+const firebaseApp = firebase.initializeApp(firebaseConfig)
+const database = firebaseApp.firestore();
+module.exports = database;

@@ -4,7 +4,10 @@ const request = require("request-promise");
 
 // สำหรับ network requests
 const axios = require('axios');
-// เชื่อมต่อ firebase
+// เชื่อมต่อ firestore
+const firestore = require("./database/firebase");
+const userRegister = firestore.collection('userRegister')
+
 var config = require('./config.js');
 const region = 'asia-northeast1';
 //const rp = require('request-promise-native');
@@ -25,6 +28,15 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
 
   //console.log("json: "+RichMenuDefault.name)
 
+  userRegister.get().then(snapshot => {
+    snapshot.forEach(doc => {
+      if (doc.data()){
+        console.log(doc.id)
+        console.log(doc.data().account)
+      }
+    })
+  })
+  
   res.header('Access-Control-Allow-Origin', '*')
 
   //menu(RichMenuDefault);
