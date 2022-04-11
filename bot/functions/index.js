@@ -1,11 +1,11 @@
 'use strict';
 const functions = require('firebase-functions')
-const request = require("request-promise");
+//const request = require("request-promise");
 
 // สำหรับ network requests
 const axios = require('axios');
 // เชื่อมต่อ firestore
-const firestore = require("./database/firebase");
+//const firestore = require("./database/firebase");
 
 var config = require('./config.js');
 const region = 'asia-northeast1';
@@ -26,7 +26,7 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
 
   let event = req.body.events[0];
 
-  const menu = firestore.collection('richMenu')
+  /*const menu = firestore.collection('richMenu')
   const userRegister = firestore.collection('userRegister')
   userRegister.get().then(snapshot => {
     snapshot.forEach(uid => {
@@ -54,7 +54,7 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
         }//if(uid.id !== undefined)
       }//if(uid.data())
     })
-  })//forEach userRegister วนลูปหา user
+  })//forEach userRegister วนลูปหา user*/
 
   if(req.method === "POST"){
     //console.log("type: "+ event.message.type);
@@ -73,7 +73,11 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
         asset.chkInventory(req, res, msg[1]);
         //await reply(event.replyToken, { type: "text", text: "หมายเลขครุภัณฑ์คือ " + msg[1]});
       }else{
-        postToDialogflow(req);
+        if(event.message.text === "ลงชื่อเข้าใช้"){
+          await reply(event.replyToken, { type: "text", text: "รอสักครู่นะคะ"});
+        }else{
+          postToDialogflow(req);
+        }
       }
     }
   }
@@ -102,9 +106,9 @@ const postToDialogflow = payloadRequest => {
   })
 }
 
-const link = async (uid, richMenuId) => {
+/*const link = async (uid, richMenuId) => {
   await request.post({
     uri: `${LINE_MESSAGING_API}/user/${uid}/richmenu/${richMenuId}`,
     headers: { Authorization: `Bearer ${config.accessToken}` }
   });
-}
+}*/
