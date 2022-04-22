@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover">
+  <title>Open Camera using WebRTC</title>
+  <link rel="stylesheet" href="https://mokmoon.com/liff1/webrtc/index.css">
+</head>
+<body>
+  <div id="container">
+    <div id="camera">
+      <!--ภาพที่ stream จากกล้องจะโผล่ตรงนี้-->
+      <video id="stream" width="100%" height="450"></video>
+        
+      <!--สร้างปุ่มถ่ายรูปบน video-->
+      <div>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <!--เราจะเอาภาพที่กดถ่ายจาก stream มาวาดตรงนี้-->
+    <canvas id="canvas" width="600" height="450"></canvas>
+        
+    <div id="snapshot">
+      <!--ที่พรีวิวรูป-->
+      <img src="https://placehold.jp/dddddd/ffffff/600x450.png?text=Preview%20Image" id="img1" width="100%">
+    </div>
+
+    <div class="button-group">
+      <!--ปุ่มถ่ายรูป-->
+      <button id="btnStream" type="button" class="button">Take a photo</button>
+      
+      <!--ปุ่ม browse รูปที่เลือกไฟล์ที่เป็นรูปได้เท่านั้น-->
+      <label id="picture" for="file" class="label custom-file-upload">Browse an image</label>
+      <input id="file" name="file" type="file" accept="image/*">
+    </div>
+  </div>
+
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script src="../myModules/webrtcbind.js"></script>
+  <!--<script src="https://mokmoon.com/liff1/webrtc/index.js"></script>-->
+</body>
+</html>

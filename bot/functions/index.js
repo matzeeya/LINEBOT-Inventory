@@ -72,12 +72,12 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
       }else if(msg[0] === "หมายเลขครุภัณฑ์" && msg[1] !== "null"){
         asset.chkInventory(req, res, msg[1]);
         //await reply(event.replyToken, { type: "text", text: "หมายเลขครุภัณฑ์คือ " + msg[1]});
+      }else if(msg[0] === "ลงทะเบียน"){
+        users.userVertify(req,res);
+      }else if(msg[0] === "ลงชื่อเข้าใช้"){
+        await reply(event.replyToken, { type: "text", text: "รอสักครู่นะคะ"});
       }else{
-        if(event.message.text === "ลงชื่อเข้าใช้"){
-          await reply(event.replyToken, { type: "text", text: "รอสักครู่นะคะ"});
-        }else{
-          postToDialogflow(req);
-        }
+        postToDialogflow(req);
       }
     }
   }
