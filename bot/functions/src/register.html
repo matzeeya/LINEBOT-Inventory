@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายละเอียด</title>
+  </head>
+  <body>
+    <script>
+      // Query Params
+      const queryString = decodeURIComponent(window.location.search);
+      const params = new URLSearchParams(queryString);
+      const decodeAsset = atob(params.get("asset"))
+      document.getElementById("asset_id").append(decodeAsset);
+    </script>
+    <p><b>รูป:</b> <img id="urlAsset" src="https://www.pngfind.com/pngs/m/337-3376455_brown-cony-sweet-love-line-brown-and-cony.png" width="200" ></p>
+    <p id="usr"><b>ชื่อผู้ใช้:</b><input type="text" id="txtUsr" name="txtUsr"></p>
+    <p id="pwd"><b>รหัสผ่าน:</b><input type="text" id="txtPwd" name="txtPwd"></p>
+    <p id="cpwd"><b>ยืนยันรหัสผ่าน:</b><input type="text" id="txtCpwd" name="txtCpwd"></p>
+    <p id="email"><b>ยืนยันรหัสผ่าน:</b><input type="text" id="txtEmail" name="txtEmail"></p>
+    <button id="btnCommit" onclick="sendCommit()">ถูกต้อง</button>
+    <button id="btnEdit" onclick="sendEdit(decodeAsset)">แก้ไข</button>
+
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src=".././liff-config.js"></script>
+    <script src="../../.././js/vconsole.min.js"></script>
+    <script>
+      var vConsole = new VConsole()
+      console.log("Hello")
+      //errorPlease()
+    </script>
+    <script>
+
+    async function sendCommit() {
+      if(liff.getContext().type !== "none"){
+        await liff.sendMessages([
+          {
+            "type" : "text",
+            "text" : "บันทึกข้อมูลสำเร็จ"
+          }
+        ]).then(function (){
+          liff.closeWindow()
+        })
+      }
+    }
+
+    async function sendEdit(aid) {
+      liff.openWindow({
+        url: LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(aid))
+      })
+    }
+
+    async function main() {
+      await liff.init({ liffId: LiffID() })
+      if (liff.isLoggedIn()) {
+        getParams()
+      }else{
+        liff.login({ redirectUri: LiffURL("bot/functions/src/assetDetail.html") })
+      }
+    }
+    main()
+    </script>
+  </body>
+</html>
