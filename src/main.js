@@ -1,7 +1,7 @@
 import Vue from 'vue'
 //import App from './App.vue'
 //import Hello from './components/HelloWorld.vue'
-import page from './components/AsyncAwait.vue'
+import page from './components/addUser.vue'
 
 Vue.config.productionTip = false
 
