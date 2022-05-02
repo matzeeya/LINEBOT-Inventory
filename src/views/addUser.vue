@@ -25,8 +25,7 @@
 </template>
 
 <script>
-import firebase from "./../../backend/database/firebase"
-
+import firebase from "../../backend/database/firebase"
 export default {
   name: 'App',
   data() {
@@ -38,7 +37,11 @@ export default {
   methods: {
     addUser(obj){
       const ref = firebase.collection("users");
-      ref.add(obj)
+      //const id = "myid#" + Math.random(999).toString();
+      ref
+      //.doc(id)
+      //.set(obj)  //set id
+      .add(obj) // add auto id
       .then(()=>{
         console.log("add successfully");
       })
