@@ -34,6 +34,12 @@ export default {
       age:null
     };
   },
+  mounted() {
+    const liff = this.$liff
+    liff.init({
+      
+    })
+  },
   methods: {
     addUser(obj){
       const ref = firebase.collection("users");
