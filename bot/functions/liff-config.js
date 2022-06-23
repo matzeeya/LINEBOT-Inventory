@@ -5,3 +5,5 @@ function LiffID(){
 function LiffURL(path){
   return "https://liff.line.me/1656639524-loJjd1JV/" + path
 }
+
+module.exports={ LiffID,LiffURL};
