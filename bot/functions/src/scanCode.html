@@ -30,7 +30,7 @@
       if (liff.isLoggedIn()) {
         QRCodeReader()
       }else{
-        liff.login({ redirectUri: LiffURL("bot/functions/src/scanCode.html?") })
+        liff.login({ redirectUri: LiffURL() })
       }
     }
     main()
