@@ -54,7 +54,7 @@
       if (liff.isLoggedIn()) {
         getParams()
       }else{
-        liff.login({ redirectUri: LiffURL() })
+        liff.login({ redirectUri: LiffURL("bot/functions/src/register.html") })
       }
     }
     main()
