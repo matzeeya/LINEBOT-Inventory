@@ -25,4 +25,4 @@ function getdata(uid){
   return data;
 }
 
-module.exports={ getdata};
+module.exports={ getdata };
