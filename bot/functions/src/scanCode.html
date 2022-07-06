@@ -6,34 +6,32 @@
 
   </head>
   <body>
-    <!--<button id="btnQR" onclick="QRCodeReader()">Open QR Code Reader</button>-->
-
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <script src=".././liff-config.js"></script>
+    <!--<script type="module" src=".././liff-config.js"></script>-->
     <script>
-
-    async function QRCodeReader() {
-      await liff.scanCode().then(function (code){
-        liff.sendMessages([
-          {
-            "type" : "text",
-            "text" : "หมายเลขครุภัณฑ์: " + code.value
-          }
-        ]).then(function (){
-          liff.closeWindow();
-        })
-      });
-    }
-
-    async function main() {
-      await liff.init({ liffId: LiffID() })
-      if (liff.isLoggedIn()) {
-        QRCodeReader()
-      }else{
-        liff.login({ redirectUri: LiffURL("bot/functions/src/scanCode.html?") })
+      async function QRCodeReader() {
+        await liff.scanCode().then(function (code){
+          liff.sendMessages([
+            {
+              "type" : "text",
+              "text" : "หมายเลขครุภัณฑ์: " + code.value
+            }
+          ]).then(function (){
+            liff.closeWindow();
+          })
+        });
       }
-    }
-    main()
+    </script>
+    <script type="module" src="../liff-config.js">
+      async function main() {
+        await liff.init({ liffId: searchLiffID })
+        if (liff.isLoggedIn()) {
+          QRCodeReader()
+        }else{
+          liff.login({ redirectUri: searchLiffUrl +"/bot/functions/src/scanCode.html?" })
+        }
+      }
+      main()
     </script>
   </body>
 </html>

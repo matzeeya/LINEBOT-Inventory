@@ -20,41 +20,31 @@
     <button id="btnCancel" onclick="sendCancel()">ยกเลิก</button>
 
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <script src=".././liff-config.js"></script>
-    <script src="../../.././js/vconsole.min.js"></script>
     <script>
-      var vConsole = new VConsole()
-      console.log("Hello")
-      //errorPlease()
-    </script>
-    <script>
-
-    async function sendCommit() {
-      if(liff.getContext().type !== "none"){
-        await liff.sendMessages([
-          {
-            "type" : "text",
-            "text" : "ลงทะเบียน"
-          }
-        ]).then(function (){
-          liff.closeWindow()
-        })
+      async function sendCommit() {
+        if(liff.getContext().type !== "none"){
+          await liff.sendMessages([
+            {
+              "type" : "text",
+              "text" : "ลงทะเบียน"
+            }
+          ]).then(function (){
+            liff.closeWindow()
+          })
+        }
       }
-    }
 
-    async function sendCancel() {
-			liff.closeWindow()
-      /*liff.openWindow({
-        url: LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(aid))
-      })*/
-    }
-
+      async function sendCancel() {
+        liff.closeWindow()
+      }
+    </script>
+    <script type="module" src="../liff-config.js">
     async function main() {
-      await liff.init({ liffId: LiffID() })
+      await liff.init({ liffId: registerLiffID })
       if (liff.isLoggedIn()) {
         getParams()
       }else{
-        liff.login({ redirectUri: LiffURL("bot/functions/src/register.html") })
+        liff.login({ redirectUri: registerLiffID + "/bot/functions/src/register.html" })
       }
     }
     main()

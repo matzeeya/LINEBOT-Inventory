@@ -4,6 +4,7 @@ node_modules
 /backend/database/firebase.js
 /bot/functions/node_modules
 /bot/functions/config.js
+/bot/functions/liff-config.js
 /bot/functions/database/firebase.js
 
 # local env files
