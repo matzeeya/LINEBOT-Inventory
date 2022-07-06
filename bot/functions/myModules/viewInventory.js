@@ -72,7 +72,7 @@ async function chkInventory(req, res, asset_id) {
                 "type": "button",
                 "action": {
                   "type": "message",
-                  "label": "ถูกต้อง",
+                  "label": "ถูกต้องค่ะ",
                   "text": "บันทึกข้อมูลสำเร็จ"
                 },
                 "style": "primary"
