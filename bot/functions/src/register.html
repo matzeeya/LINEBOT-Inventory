@@ -20,6 +20,7 @@
     <button id="btnCancel" onclick="sendCancel()">ยกเลิก</button>
 
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="../liff-config.js"></script>
     <script>
       async function sendCommit() {
         if(liff.getContext().type !== "none"){
@@ -37,8 +38,7 @@
       async function sendCancel() {
         liff.closeWindow()
       }
-    </script>
-    <script type="module" src="../liff-config.js">
+
     async function main() {
       await liff.init({ liffId: LiffID() })
       if (liff.isLoggedIn()) {
