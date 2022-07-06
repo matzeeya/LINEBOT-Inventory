@@ -40,11 +40,11 @@
     </script>
     <script type="module" src="../liff-config.js">
     async function main() {
-      await liff.init({ liffId: registerLiffID })
+      await liff.init({ liffId: LiffID() })
       if (liff.isLoggedIn()) {
         getParams()
       }else{
-        liff.login({ redirectUri: registerLiffID + "/bot/functions/src/register.html" })
+        liff.login({ redirectUri: LiffURL("/bot/functions/src/register.html") })
       }
     }
     main()

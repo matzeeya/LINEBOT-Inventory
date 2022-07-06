@@ -24,11 +24,11 @@
     </script>
     <script type="module" src="../liff-config.js">
       async function main() {
-        await liff.init({ liffId: searchLiffID })
+        await liff.init({ liffId: LiffID() })
         if (liff.isLoggedIn()) {
           QRCodeReader()
         }else{
-          liff.login({ redirectUri: searchLiffUrl +"/bot/functions/src/scanCode.html?" })
+          liff.login({ redirectUri: LiffURL("/bot/functions/src/scanCode.html") })
         }
       }
       main()
