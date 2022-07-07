@@ -5,7 +5,7 @@ const functions = require('firebase-functions')
 // สำหรับ network requests
 const axios = require('axios');
 // เชื่อมต่อ firestore
-const firestore = require("./database/firebase");
+// const firestore = require("./database/firebase");
 
 var config = require('./config.js');
 const region = 'asia-northeast1';
@@ -13,6 +13,7 @@ const region = 'asia-northeast1';
 var photo = require('./myModules/uploadPhoto');
 var users = require('./myModules/userResgister');
 var asset = require('./myModules/checkedInventory');
+//var get = require('./myModules/getDataInventory');
 var view = require('./myModules/viewInventory');
 var register = require('./myModules/confirmRegister');
 
@@ -25,7 +26,7 @@ const LINE_HEADER = {
 exports.fulfillment = functions.region(region).https.onRequest(async(req, res) => {
   res.header('Access-Control-Allow-Origin', '*')
   let event = req.body.events[0];
-  const inventory = firestore.collection('inventory')
+  //const user = firestore.collection('userRegister')
   /*const menu = firestore.collection('richMenu')
   const userRegister = firestore.collection('userRegister')
   userRegister.get().then(snapshot => {
@@ -73,25 +74,7 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
         asset.chkInventory(req, res, msg[1]);
         //await reply(event.replyToken, { type: "text", text: "หมายเลขครุภัณฑ์คือ " + msg[1]});
       }else if(msg[0] === "ข้อมูลครุภัณฑ์" && msg[1] !== "null"){
-        //const data = get.getdata(msg[1]);
-        inventory.get().then(snapshot =>{
-          snapshot.forEach((doc)=>{
-            if(doc.data().inventory_number ===  msg[1]){
-              console.log(doc.id);
-              const id = doc.id;
-              const number = doc.data().inventory_number;
-              const name = doc.data().inventory_name;
-              const room = doc.data().room;
-              const url = doc.data().photo;
-              const data = id+"#"+number+"#"+name+"#"+room+"#"+url;
-              view.chkInventory(req, res, data);
-            }else{
-              console.log("ไม่พบข้อมูลครุภัณฑ์");
-            }
-          })
-        })
-        //console.log("data: "+data);
-        //asset.chkInventory(req, res, msg[1]);
+        view.getdata(req, res, msg[1]);
       }else if(msg[0] === "ลงทะเบียน"){
         register.userRegister(req,res);
       }else if(msg[0] === "ถูกต้อง"){
