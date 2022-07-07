@@ -2,6 +2,7 @@
 const axios = require('axios');
 
 // เชื่อมต่อ firebase
+const firestore = require("../database/firebase");
 var config = require('../config.js');
 
 const LINE_MESSAGING_API = "https://api.line.me/v2/bot";
@@ -10,10 +11,9 @@ const LINE_HEADER = {
   Authorization: `Bearer ${config.accessToken}`
 };
 
-async function chkInventory(req, res, asset_id) {
+async function chkInventory(req, res, number, name, sn, brand, room, url) {
     const event = req.body.events[0];
-    const encodeAsset = btoa(asset_id);
-    //await reply(event.replyToken, { type: "text", text: "หมายเลขครุภัณฑ์คือ " + asset_id});
+    const encodeAsset = btoa(number);
     await reply(event.replyToken, { 
         type: 'flex',
         altText: 'ไม่รองรับการแสดงผลบนอุปกรณ์นี้',
@@ -33,7 +33,7 @@ async function chkInventory(req, res, asset_id) {
           },
           "hero": {
             "type": "image",
-            "url": "https://sites.google.com/site/cam5910122137024/_/rsrc/1479360435073/personal-computer/hp-pavilion-hpe-phoenix-pc_resized.jpeg",
+            "url": url,
             "size": "full",
             "aspectRatio": "1.51:1",
             "aspectMode": "cover"
@@ -44,23 +44,23 @@ async function chkInventory(req, res, asset_id) {
             "contents": [
               {
                 "type": "text",
-                "text": "หมายเลขครุภัณฑ์: " + asset_id
+                "text": "หมายเลขครุภัณฑ์: " + number
               },
               {
                 "type": "text",
-                "text": "ชื่อรายการ:"
+                "text": "ชื่อรายการ: " + name
               },
               {
                 "type": "text",
-                "text": "S/N:"
+                "text": "S/N: " + sn
               },
               {
                 "type": "text",
-                "text": "ยี่ห้อ:"
+                "text": "ยี่ห้อ: " + brand
               },
               {
                 "type": "text",
-                "text": "สถานที่จัดเก็บ: "
+                "text": "สถานที่จัดเก็บ: " + room
               }
             ]
           },
@@ -105,4 +105,22 @@ async function chkInventory(req, res, asset_id) {
     })
   };
 
-  module.exports={ chkInventory};
+  function getdata(req, res, uid){
+    const inventory = firestore.collection('inventory')
+    inventory.get()
+    .then(snapshot =>{
+      snapshot.forEach((doc)=>{
+        if(doc.data().inventory_number === uid){
+          const number = doc.data().inventory_number;
+          const name = doc.data().inventory_name;
+          const sn = doc.data().serial_number;
+          const brand = doc.data().brand;
+          const room = doc.data().room;
+          const url = doc.data().photo;
+          chkInventory(req, res, number, name, sn, brand, room, url);
+        }
+      })
+    })
+  }
+
+  module.exports={ getdata };

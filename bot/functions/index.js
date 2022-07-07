@@ -71,7 +71,7 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
       if(msg[0] === "ตรวจสอบผู้ใช้งาน"){
         users.userVertify(req,res);
       }else if(msg[0] === "หมายเลขครุภัณฑ์" && msg[1] !== "null"){
-        asset.chkInventory(req, res, msg[1]);
+        asset.getdata(req, res, msg[1]);
         //await reply(event.replyToken, { type: "text", text: "หมายเลขครุภัณฑ์คือ " + msg[1]});
       }else if(msg[0] === "ข้อมูลครุภัณฑ์" && msg[1] !== "null"){
         view.getdata(req, res, msg[1]);

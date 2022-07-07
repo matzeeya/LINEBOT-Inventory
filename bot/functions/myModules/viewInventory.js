@@ -11,9 +11,8 @@ const LINE_HEADER = {
   Authorization: `Bearer ${config.accessToken}`
 };
 
-async function chkInventory(req, res,  number, name, sn, brand, room, url) {
+async function chkInventory(req, res, number, name, sn, brand, room, url) {
     const event = req.body.events[0];
-    const encodeAsset = btoa(number);
     //await reply(event.replyToken, { type: "text", text: "หมายเลขครุภัณฑ์คือ " + asset_id});
     await reply(event.replyToken, { 
         type: 'flex',
@@ -73,19 +72,10 @@ async function chkInventory(req, res,  number, name, sn, brand, room, url) {
                 "type": "button",
                 "action": {
                   "type": "message",
-                  "label": "ถูกต้องค่ะ",
-                  "text": "บันทึกข้อมูลสำเร็จ"
+                  "label": "ตกลง",
+                  "text": "ตกลง"
                 },
                 "style": "primary"
-              },
-              {
-                "type": "button",
-                "action": {
-                  "type": "uri",
-                  "label": "แก้ไข",
-                  "uri": `${config.LIFF_URL}/bot/functions/src/assetEdit.html?asset=${encodeAsset}`
-                },
-                "style": "secondary"
               }
             ]
           }
