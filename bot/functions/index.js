@@ -14,6 +14,7 @@ var photo = require('./myModules/uploadPhoto');
 var users = require('./myModules/userResgister');
 var asset = require('./myModules/checkedInventory');
 var view = require('./myModules/viewInventory');
+var borrow = require('./myModules/borrow');
 var register = require('./myModules/confirmRegister');
 
 const LINE_MESSAGING_API = "https://api.line.me/v2/bot";
@@ -44,7 +45,7 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
       }else if(msg[0] === "ข้อมูลครุภัณฑ์" && msg[1] !== "null"){
         view.getdata(req, res, msg[1]);
       }else if(msg[0] === "ยืมครุภัณฑ์" && msg[1] !== "null"){
-        view.getdata(req, res, msg[1]);
+        borrow.getdata(req, res, msg[1]);
       }else if(msg[0] === "ลงทะเบียน"){
         register.userRegister(req,res);
       }else if(msg[0] === "ถูกต้อง"){

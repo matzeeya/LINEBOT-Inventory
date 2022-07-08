@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายละเอียดการยืม</title>
+    
+  </head>
+  <body>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="../liff-config.js"></script>
+
+    <p id="id"><b>หมายเลขครุภัณฑ์:</b> </p>
+    <script>
+    function getParams(){
+      const queryString = decodeURIComponent(window.location.search);
+      const params = new URLSearchParams(queryString);
+      const decodeAsset = atob(params.get("id"))
+      document.getElementById("id").append(decodeAsset);
+    }
+
+    async function main() {
+      await liff.init({ liffId: LiffID() })
+      if (liff.isLoggedIn()) {
+        getParams()
+      }else{
+        liff.login({ redirectUri: LiffURL("/bot/functions/src/viewBorrowDetail.html") })
+      }
+    }
+    main()
+    </script>
+  </body>
+</html>
