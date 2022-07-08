@@ -187,6 +187,7 @@ async function chkInventory(req, res, number, name, brand, room, url) {
     .then(snapshot =>{
       snapshot.forEach((doc)=>{
         if(doc.data().item_number === id){
+          const id = doc.id;
           const number = doc.data().item_number;
           const name = doc.data().item_name;
           const brand = doc.data().brand;
@@ -196,7 +197,6 @@ async function chkInventory(req, res, number, name, brand, room, url) {
           if(status === "1"){
             chkInventory(req, res, number, name , brand, room, url);
           }else if(status === "2"){
-            const id = doc.id;
             notBorrow(req, res, id, number, name, "ถูกยืม", brand, room, url);
           } 
         }
