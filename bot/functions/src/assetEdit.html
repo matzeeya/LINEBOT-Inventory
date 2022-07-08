@@ -19,7 +19,7 @@
     <button id="btnSave" onclick="sendSave()">บันทึก</button>
 
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <script src=".././liff-config.js"></script>
+    <script src="../liff-config.js"></script>
     <script>
     // Query Params
     function getParams(){
@@ -47,7 +47,7 @@
       if (liff.isLoggedIn()) {
         getParams()
       }else{
-        liff.login({ redirectUri: LiffURL("bot/functions/src/assetEdit.html") })
+        liff.login({ redirectUri: LiffURL("/bot/functions/src/assetEdit.html") })
       }
     }
     main()

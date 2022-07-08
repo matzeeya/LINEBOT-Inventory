@@ -7,7 +7,7 @@
   </head>
   <body>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <script src=".././liff-config.js"></script>
+    <script src="../liff-config.js"></script>
     <script>
 
     async function QRCodeReader() {
@@ -28,7 +28,7 @@
       if (liff.isLoggedIn()) {
         QRCodeReader()
       }else{
-        liff.login({ redirectUri: LiffURL("bot/functions/src/repair.html?") })
+        liff.login({ redirectUri: LiffURL("/bot/functions/src/repair.html?") })
       }
     }
     main()

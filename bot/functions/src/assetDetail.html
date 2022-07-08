@@ -20,7 +20,7 @@
     <button id="btnEdit" onclick="sendEdit(decodeAsset)">แก้ไข</button>
 
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <script src=".././liff-config.js"></script>
+    <script src="../liff-config.js"></script>
     <script src="../../.././js/vconsole.min.js"></script>
     <script>
       var vConsole = new VConsole()
@@ -44,7 +44,7 @@
 
     async function sendEdit(aid) {
       liff.openWindow({
-        url: LiffURL("bot/functions/src/assetEdit.html?asset="+btoa(aid))
+        url: LiffURL("/bot/functions/src/assetEdit.html?asset="+btoa(aid))
       })
     }
 
@@ -53,7 +53,7 @@
       if (liff.isLoggedIn()) {
         getParams()
       }else{
-        liff.login({ redirectUri: LiffURL("bot/functions/src/assetDetail.html") })
+        liff.login({ redirectUri: LiffURL("/bot/functions/src/assetDetail.html") })
       }
     }
     main()
