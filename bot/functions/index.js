@@ -13,7 +13,6 @@ const region = 'asia-northeast1';
 var photo = require('./myModules/uploadPhoto');
 var users = require('./myModules/userResgister');
 var asset = require('./myModules/checkedInventory');
-//var get = require('./myModules/getDataInventory');
 var view = require('./myModules/viewInventory');
 var register = require('./myModules/confirmRegister');
 
@@ -26,7 +25,7 @@ const LINE_HEADER = {
 exports.fulfillment = functions.region(region).https.onRequest(async(req, res) => {
   res.header('Access-Control-Allow-Origin', '*')
   let event = req.body.events[0];
-  if(req.method === "POST"){
+  if(req.method === "POST"){ 
     //console.log("type: "+ event.message.type);
     if(event.message.type !== "text"){
       if(event.message.type === "image"){
