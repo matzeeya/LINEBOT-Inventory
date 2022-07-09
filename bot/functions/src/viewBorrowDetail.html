@@ -18,7 +18,7 @@
         const firestore = firebaseApp.firestore();
         const item = firestore.collection('item')
         const query = item
-        .where("item_number","==",id)
+        .where("item_number","==","7450-010-2457")
         query
         .get()
         .then(snapshot =>{
