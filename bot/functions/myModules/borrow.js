@@ -93,7 +93,7 @@ async function chkInventory(req, res, number, name, brand, room, url) {
     return res.end();
   }
 
-  async function notBorrow(req, res, id, number, name, status, brand, room, url) {
+  async function isNotBorrow(req, res, id, number, name, status, brand, room, url) {
     const event = req.body.events[0];
     const encodeId = btoa(id);
     await reply(event.replyToken, { 
@@ -186,20 +186,18 @@ async function chkInventory(req, res, number, name, brand, room, url) {
     .get()
     .then(snapshot =>{
       snapshot.forEach((doc)=>{
-        if(doc.data().item_number === id){
-          const item_id = doc.id;
-          const number = doc.data().item_number;
-          const name = doc.data().item_name;
-          const brand = doc.data().brand;
-          const room = doc.data().room;
-          const url = doc.data().photo;
-          const status = doc.data().status;
-          if(status === "1"){
-            chkInventory(req, res, number, name , brand, room, url);
-          }else if(status === "2"){
-            notBorrow(req, res, item_id, number, name, "ถูกยืม", brand, room, url);
-          } 
-        }
+        const item_id = doc.id;
+        const number = doc.data().item_number;
+        const name = doc.data().item_name;
+        const brand = doc.data().brand;
+        const room = doc.data().room;
+        const url = doc.data().photo;
+        const status = doc.data().status;
+        if(status === "1"){
+          chkInventory(req, res, number, name , brand, room, url);
+        }else if(status === "2"){
+          isNotBorrow(req, res, item_id, number, name, "ถูกยืม", brand, room, url);
+        } 
       })
     })
     .catch(err =>{

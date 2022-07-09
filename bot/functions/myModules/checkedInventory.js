@@ -82,7 +82,7 @@ async function chkInventory(req, res, number, name, sn, brand, room, url) {
                 "action": {
                   "type": "uri",
                   "label": "แก้ไข",
-                  "uri": `${config.LIFF_URL}/bot/functions/src/assetEdit.html?asset=${encodeAsset}`
+                  "uri": `${config.LiffURL}/bot/functions/src/assetEdit.html?asset=${encodeAsset}`
                 },
                 "style": "secondary"
               }
