@@ -7,36 +7,27 @@
   </head>
   <body>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <!--<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    <script src="../../../backend/database/firebase"></script>
-    <!--<script src="../liff-config.js"></script>-->
+    <script src="../../../backend/database/firebase"></script>-->
+   <script src="../liff-config.js"></script>
+   <script src="../../../js/vconsole.min.js"></script>
+    <script>
+      var vConsole = new VConsole()
+      console.log("Hello")
+    </script>
 
     <p id="id"><b>ID:</b> </p>
     <p id="number"><b>หมายเลขครุภัณฑ์:</b> </p>
     <script>
-      const item = database.collection('item');
-      const query = item
-      .where("item_number","==",decodeId)
-      query
-      .get()
-      .then(snapshot =>{
-        snapshot.forEach((doc)=>{
-          console.log("number: "+ doc.data().item_number)
-          //document.getElementById("number").append(doc.data().item_number);
-        })
-      })
-      .catch(err =>{
-        console.log(err);
-      })
-    //import firebase from "../../../backend/database/firebase"
+    import firebase from "../../../backend/database/firebase"
     
-    /*function getParams(){
+    function getParams(){
       const queryString = decodeURIComponent(window.location.search);
       const params = new URLSearchParams(queryString);
       const decodeId = atob(params.get("id"))
       document.getElementById("id").append(decodeId);
-      const item = firebase.collection('item');
+      const item = firebase.database.collection('item');
       const query = item
       .where("item_number","==",decodeId)
       query
@@ -59,7 +50,7 @@
         liff.login({ redirectUri: LiffURL("/bot/functions/src/viewBorrowDetail.html") })
       }
     }
-    main()*/
+    main()
     </script>
   </body>
 </html>
