@@ -7,55 +7,21 @@
   </head>
   <body>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <script src="../../../backend/database/firebase.js"></script>
+    
     <!--<script src="../database/firebase.js"></script>-->
     <script src="../liff-config.js"></script>
-    <script src="../../../js/vconsole.min.js"></script>
-    <script>
-      var vConsole = new VConsole()
-      console.log("Hello")
-      const queryString = decodeURIComponent(window.location.search);
-      const params = new URLSearchParams(queryString);
-      const decodeId = atob(params.get("id"))
-      const db = firestore.collection('borrow')
-      const query = db
-      .where("item_id","==",decodeId)
-      query
-      .get()
-      .then(snapshot =>{
-        snapshot.forEach((doc)=>{
-          console.log("id:"+doc.data().item_number);
-          document.getElementById("number").append(doc.data().item_number);
-        })
-      })
-      .catch(err =>{
-        console.log(err);
-      })
-      //console.log("db:"+db)
-    </script>
 
     <p id="id"><b>ID:</b> </p>
     <p id="number"><b>หมายเลขครุภัณฑ์:</b> </p>
+    <script type="module" src="./test.js">
+      console.log("number:"+number);
+    </script>
     <script>
     function getParams(){
       const queryString = decodeURIComponent(window.location.search);
       const params = new URLSearchParams(queryString);
       const decodeId = atob(params.get("id"))
       document.getElementById("id").append(decodeId);
-      /*const borrow = conn().collection('borrow')
-      const query = borrow
-      .where("item_id","==",decodeId)
-      query
-      .get()
-      .then(snapshot =>{
-        snapshot.forEach((doc)=>{
-          console.log("id:"+doc.data().item_number);
-          document.getElementById("number").append(doc.data().item_number);
-        })
-      })
-      .catch(err =>{
-        console.log(err);
-      })*/
     }
 
     async function main() {
