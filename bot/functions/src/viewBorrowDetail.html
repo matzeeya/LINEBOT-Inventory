@@ -14,7 +14,18 @@
     <script>
       var vConsole = new VConsole()
       console.log("Hello")
-      console.log("db:"+db)
+      const db = firestore.collection('borrow')
+      .get()
+      .then(snapshot =>{
+        snapshot.forEach((doc)=>{
+          console.log("id:"+doc.data().item_number);
+          document.getElementById("number").append(doc.data().item_number);
+        })
+      })
+      .catch(err =>{
+        console.log(err);
+      })
+      //console.log("db:"+db)
     </script>
 
     <p id="id"><b>ID:</b> </p>
