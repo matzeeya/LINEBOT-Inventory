@@ -113,15 +113,13 @@ async function chkInventory(req, res, number, name, sn, brand, room, url) {
     .get()
     .then(snapshot =>{
       snapshot.forEach((doc)=>{
-        if(doc.data().item_number === id){
-          const number = doc.data().item_number;
-          const name = doc.data().item_name;
-          const sn = doc.data().serial_number;
-          const brand = doc.data().brand;
-          const room = doc.data().room;
-          const url = doc.data().photo;
-          chkInventory(req, res, number, name, sn, brand, room, url);
-        }
+        const number = doc.data().item_number;
+        const name = doc.data().item_name;
+        const sn = doc.data().serial_number;
+        const brand = doc.data().brand;
+        const room = doc.data().room;
+        const url = doc.data().photo;
+        chkInventory(req, res, number, name, sn, brand, room, url);
       })
     })
     .catch(err =>{

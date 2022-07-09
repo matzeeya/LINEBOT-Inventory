@@ -186,20 +186,18 @@ async function chkInventory(req, res, number, name, brand, room, url) {
     .get()
     .then(snapshot =>{
       snapshot.forEach((doc)=>{
-        if(doc.data().item_number === id){
-          const id = doc.id;
-          const number = doc.data().item_number;
-          const name = doc.data().item_name;
-          const brand = doc.data().brand;
-          const room = doc.data().room;
-          const url = doc.data().photo;
-          const status = doc.data().status;
-          if(status === "1"){
-            chkInventory(req, res, number, name , brand, room, url);
-          }else if(status === "2"){
-            notBorrow(req, res, id, number, name, "ถูกยืม", brand, room, url);
-          } 
-        }
+        const id = doc.id;
+        const number = doc.data().item_number;
+        const name = doc.data().item_name;
+        const brand = doc.data().brand;
+        const room = doc.data().room;
+        const url = doc.data().photo;
+        const status = doc.data().status;
+        if(status === "1"){
+          chkInventory(req, res, number, name , brand, room, url);
+        }else if(status === "2"){
+          notBorrow(req, res, id, number, name, "ถูกยืม", brand, room, url);
+        } 
       })
     })
     .catch(err =>{
