@@ -14,7 +14,13 @@
     <script>
       var vConsole = new VConsole()
       console.log("Hello")
+      const queryString = decodeURIComponent(window.location.search);
+      const params = new URLSearchParams(queryString);
+      const decodeId = atob(params.get("id"))
       const db = firestore.collection('borrow')
+      const query = db
+      .where("item_id","==",decodeId)
+      query
       .get()
       .then(snapshot =>{
         snapshot.forEach((doc)=>{
