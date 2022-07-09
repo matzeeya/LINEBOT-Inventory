@@ -15,6 +15,21 @@
     <script src="../../../backend/database/firebase.js"></script>
     <script>
       function test(){
+        const firebaseApp = firebase.initializeApp(firebase())
+        const firestore = firebaseApp.firestore();
+        const item = firestore.collection('item')
+        const query = item
+        .where("item_number","==",id)
+        query
+        .get()
+        .then(snapshot =>{
+          snapshot.forEach((doc)=>{
+            console.log(doc.data().item_name);
+          })
+        })
+        .catch(err =>{
+          console.log(err);
+        })
         console.log("number:"+firebase());
       }
       test()
