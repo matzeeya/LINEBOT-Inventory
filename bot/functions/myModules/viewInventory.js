@@ -111,7 +111,7 @@ async function chkInventory(req, res, number, name, sn, brand, room, url) {
         const room = doc.data().room;
         const url = doc.data().photo;
         chkInventory(req, res, number, name, sn, brand, room, url);
-    })
+      })
     })
     .catch(err =>{
       console.log(err);
