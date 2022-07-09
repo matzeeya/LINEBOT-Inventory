@@ -7,8 +7,8 @@
   </head>
   <body>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <!--<script src="../../../backend/database/firebase.js"></script>-->
-    <script src="../database/firebase.js"></script>
+    <script src="../../../backend/database/firebase.js"></script>
+    <!--<script src="../database/firebase.js"></script>-->
     <script src="../liff-config.js"></script>
     <script src="../../../js/vconsole.min.js"></script>
     <script>
@@ -16,15 +16,15 @@
       console.log("Hello")
     </script>
 
-    <p id="id"><b>ID:</b> </p>
-    <p id="number"><b>หมายเลขครุภัณฑ์:</b> </p>
+    <p id="id: "><b>ID:</b> </p>
+    <p id="number: "><b>หมายเลขครุภัณฑ์:</b> </p>
     <script>
     function getParams(){
       const queryString = decodeURIComponent(window.location.search);
       const params = new URLSearchParams(queryString);
       const decodeId = atob(params.get("id"))
       document.getElementById("id").append(decodeId);
-      const borrow = database.collection('borrow')
+      const borrow = conn.collection('borrow')
       const query = borrow
       .where("item_id","==",decodeId)
       query
