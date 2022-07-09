@@ -7,8 +7,8 @@
   </head>
   <body>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <!--<script src="../database/firebase.js"></script>
-    <script src="../liff-config.js"></script>-->
+    <script src="../../../backend/database/firebase.js"></script>
+    <script src="../liff-config.js"></script>
 
     <p id="id"><b>ID:</b> </p>
     <p id="number"><b>หมายเลขครุภัณฑ์:</b> </p>
@@ -16,7 +16,7 @@
       console.log("number:"+number);
     </script>
     <script>
-    /*function getParams(){
+    function getParams(){
       const queryString = decodeURIComponent(window.location.search);
       const params = new URLSearchParams(queryString);
       const decodeId = atob(params.get("id"))
@@ -31,7 +31,7 @@
         liff.login({ redirectUri: LiffURL("/bot/functions/src/viewBorrowDetail.html") })
       }
     }
-    main()*/
+    main()
     </script>
   </body>
 </html>
