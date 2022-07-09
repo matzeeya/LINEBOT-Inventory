@@ -21,8 +21,8 @@
       //}
       //test()
       function test(){
-        const firebase = require("firebase");
-        require("firebase/firestore");
+        const firebase = require("firebase/compat/app");
+        require("firebase/compat/firestore");
         const firebaseApp = firebase.initializeApp(firebase())
         const firestore = firebaseApp.firestore();
         const item = firestore.collection('item')
