@@ -7,13 +7,18 @@
   </head>
   <body>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <script src="../../../backend/database/firebase.js"></script>
+    <!--<script src="../../../backend/database/firebase.js"></script>
     <script src="../liff-config.js"></script>
 
     <p id="id"><b>ID:</b> </p>
-    <p id="number"><b>หมายเลขครุภัณฑ์:</b> </p>
+    <p id="number"><b>หมายเลขครุภัณฑ์:</b> </p>-->
+    <script src="./test.js"></script>
     <script>
       function test(){
+        console.log("test: "+firebase())
+      }
+      test()
+      /*function test(){
         const firebaseApp = firebase.initializeApp(firebase())
         const firestore = firebaseApp.firestore();
         const item = firestore.collection('item')
@@ -40,7 +45,7 @@
           liff.login({ redirectUri: LiffURL("/bot/functions/src/viewBorrowDetail.html") })
         }
       }
-      main()
+      main()*/
     </script>
     <!--<script>
     function getParams(){
