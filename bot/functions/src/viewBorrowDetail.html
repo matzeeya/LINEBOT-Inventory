@@ -30,6 +30,7 @@
       .get()
       .then(snapshot =>{
         snapshot.forEach((doc)=>{
+          console.log("id:"+doc.data().item_number);
           document.getElementById("number").append(doc.data().item_number);
         })
       })
