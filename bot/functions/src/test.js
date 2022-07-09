@@ -3,7 +3,7 @@ function number(){
 }
 
 function firebase(){
-  return firebaseConfig = {
+  var firebaseConfig = {
     apiKey: "asdcasdJeRSaY",
     authDomain: "xxx.firebaseapp.com",
     projectId: "xxx",
@@ -11,5 +11,6 @@ function firebase(){
     messagingSenderId: "asd47",
     appId: "asd9af179e6"
   };
+  return firebaseConfig;
 }
 module.exports={number,firebase}

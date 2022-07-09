@@ -7,15 +7,17 @@
   </head>
   <body>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    <script src="../../../backend/database/firebase.js"></script>
-    <script src="../liff-config.js"></script>
+    <!--<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>-->
+    <!--<script src="../../../backend/database/firebase.js"></script>
+    <script src="../liff-config.js"></script>-->
     <script src="../../../js/vconsole.min.js"></script>
     <script>
+      //const firebase = require("../../../backend/database/firebase.js");
+      const firebase = require("./test.js");
       var vConsole = new VConsole()
       console.log("Hello")
-      console.log("db:"+firebase())
+      console.log("db:"+ firebase.db())
     </script>
 
     <p id="id"><b>ID:</b> </p>
@@ -26,7 +28,7 @@
         //console.log("test: "+firebase())
       //}
       //test()
-      function test(){
+      /*function test(){
         const firebase = require("firebase/compat/app");
         require("firebase/compat/firestore");
         const firebaseApp = firebase.initializeApp(firebase())
@@ -55,7 +57,7 @@
           liff.login({ redirectUri: LiffURL("/bot/functions/src/viewBorrowDetail.html") })
         }
       }
-      main()
+      main()*/
     </script>
     <!--<script>
     function getParams(){
