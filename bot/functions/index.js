@@ -26,6 +26,7 @@ const LINE_HEADER = {
 exports.fulfillment = functions.region(region).https.onRequest(async(req, res) => {
   res.header('Access-Control-Allow-Origin', '*')
   let event = req.body.events[0];
+  //console.log("user:"+event.source.userId)
   if(req.method === "POST"){ 
     //console.log("type: "+ event.message.type);
     if(event.message.type !== "text"){
