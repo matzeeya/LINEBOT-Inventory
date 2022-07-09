@@ -7,12 +7,11 @@
   </head>
   <body>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <!--<script src="../../../backend/database/firebase.js"></script>
-    <script src="../liff-config.js"></script>-->
+    <script src="../../../backend/database/firebase.js"></script>
+    <script src="../liff-config.js"></script>
 
     <p id="id"><b>ID:</b> </p>
     <p id="number"><b>หมายเลขครุภัณฑ์:</b> </p>
-    <script src="../../../backend/database/firebase.js"></script>
     <script>
       function test(){
         const firebaseApp = firebase.initializeApp(firebase())
@@ -32,7 +31,15 @@
         })
         console.log("number:"+firebase());
       }
-      test()
+      async function main() {
+        await liff.init({ liffId: LiffID() })
+        if (liff.isLoggedIn()) {
+          test()
+        }else{
+          liff.login({ redirectUri: LiffURL("/bot/functions/src/viewBorrowDetail.html") })
+        }
+      }
+      main()
     </script>
     <!--<script>
     function getParams(){
