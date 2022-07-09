@@ -7,15 +7,15 @@
   </head>
   <body>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <script src="../../../backend/database/firebase.js"></script>
-    <script src="../liff-config.js"></script>
+    <!--<script src="../../../backend/database/firebase.js"></script>
+    <script src="../liff-config.js"></script>-->
 
     <p id="id"><b>ID:</b> </p>
     <p id="number"><b>หมายเลขครุภัณฑ์:</b> </p>
-    <script type="module" src="./test.js">
-      console.log("number:"+number);
+    <script src="./test.js">
+      console.log("number:"+number());
     </script>
-    <script>
+    <!--<script>
     function getParams(){
       const queryString = decodeURIComponent(window.location.search);
       const params = new URLSearchParams(queryString);
@@ -32,6 +32,6 @@
       }
     }
     main()
-    </script>
+    </script>-->
   </body>
 </html>
