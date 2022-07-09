@@ -14,6 +14,7 @@
     <script>
       var vConsole = new VConsole()
       console.log("Hello")
+      console.log("db:"+conn())
     </script>
 
     <p id="id"><b>ID:</b> </p>
@@ -24,7 +25,6 @@
       const params = new URLSearchParams(queryString);
       const decodeId = atob(params.get("id"))
       document.getElementById("id").append(decodeId);
-      console.log("db:"+conn())
       /*const borrow = conn().collection('borrow')
       const query = borrow
       .where("item_id","==",decodeId)
