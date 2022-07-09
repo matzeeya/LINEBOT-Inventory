@@ -25,7 +25,7 @@
       document.getElementById("id").append(decodeId);
       const item = database.collection('item')
       const query = item
-      .where("item_number","==",id)
+      .where("item_number","==",decodeId)
       query
       .get()
       .then(snapshot =>{
