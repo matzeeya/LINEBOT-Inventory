@@ -1,3 +1,5 @@
 const number = "7450-010-2457"
 
-export default number;
+export {
+  number
+}
