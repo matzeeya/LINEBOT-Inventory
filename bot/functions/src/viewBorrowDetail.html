@@ -21,7 +21,7 @@
         console.log("id:"+id)
         const firestore = require("../database/firebase");
         const borrow = firestore.collection('borrow')
-        const query = item
+        const query = borrow
         .where("item_id","==",id)
         query
         .get()
