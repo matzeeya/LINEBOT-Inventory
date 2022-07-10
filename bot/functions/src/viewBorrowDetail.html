@@ -16,7 +16,7 @@
 
     <p id="id"><b>ID:</b> </p>
     <p id="number"><b>หมายเลขครุภัณฑ์:</b> </p>
-    <script src="./test.js"></script>
+    <script src="../database/firebase.js"></script>
     <script>
       function getParams(){
         const queryString = decodeURIComponent(window.location.search);
@@ -24,7 +24,6 @@
         const decodeId = atob(params.get("id"))
         getData(decodeId)
         //document.getElementById("id").append(decodeId);
-        //document.getElementById("number").append(number);
       }
       async function getData(id){
         const firestore = require("../database/firebase");
@@ -36,13 +35,6 @@
         .then(snapshot =>{
           snapshot.forEach((doc)=>{
             document.getElementById("number").append(doc.data().item_number);
-            /*const number = doc.data().item_number;
-            const name = doc.data().item_name;
-            const sn = doc.data().serial_number;
-            const brand = doc.data().brand;
-            const room = doc.data().room;
-            const url = doc.data().photo;
-            chkInventory(req, res, number, name, sn, brand, room, url);*/
           })
         })
         .catch(err =>{
@@ -50,8 +42,6 @@
         })
       }
       async function main() {
-        
-
         await liff.init({ liffId: LiffID() })
         if (liff.isLoggedIn()) {
           getParams()
