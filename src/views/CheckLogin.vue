@@ -24,7 +24,7 @@
         if (liff.isLoggedIn()) {
           liff.getProfile()
           .then(profile => {
-            // console.log(JSON.stringify(profile))
+            console.log(JSON.stringify(profile))
             this.userProfile = profile
           })
           .catch((err) => {
