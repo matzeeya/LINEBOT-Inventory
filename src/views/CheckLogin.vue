@@ -37,7 +37,7 @@
       }).catch((err) => {
         console.error('Error initialize LIFF: ', err)
       })
-      // TODO: get pizza from Firestore
+      // TODO: get user from Firestore
       firebase.userRegister.get().then(snapshot => {
         snapshot.forEach(doc => {
           if (doc.data()){
