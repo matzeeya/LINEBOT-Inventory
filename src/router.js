@@ -1,20 +1,20 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-//import Home from './views/CheckLogin.vue'
-import AddUser from './views/addUser.vue'
+import Home from './views/CheckLogin.vue'
+import Regiter from './components/Default/UserRegister.vue'
 import AsyncAwait from './views/AsyncAwait.vue'
 
 Vue.use(VueRouter)
 
-const routes = [/*{
+const routes = [{
   path: '/',
   name: 'Home',
   component: Home
-},*/
+},
 {
-  path: '/add',
-  name: 'AddUser',
-  component: AddUser
+  path: '/register',
+  name: 'Regiter',
+  component: Regiter
 },
 {
   path: '/async',

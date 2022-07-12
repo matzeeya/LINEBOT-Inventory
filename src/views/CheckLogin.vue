@@ -6,8 +6,8 @@
   </div>
 </template>
 <script>
-  const firebase  = require('../../bot/functions/database/firebase.js')
-  const line  = require('../../bot/functions/config.js')
+  import firebase from "../../backend/database/firebase"
+  const userRegister = firebase.collection("userRegister")
   export default {
     name: 'App',
     data () {
@@ -15,30 +15,8 @@
         userProfile: null
       }
     },
-    mounted() {
-      const liff = this.$liff
-      liff.init({
-        liffId: line.LIFF_ID
-      }).then(() => {
-        console.log('LIFF initialize finished')
-        if (liff.isLoggedIn()) {
-          liff.getProfile()
-          .then(profile => {
-            console.log(JSON.stringify(profile))
-            this.userProfile = profile
-          })
-          .catch((err) => {
-            console.error(err)
-          })
-        } else {
-          console.log('LIFF is not logged in')
-          liff.login()
-        }
-      }).catch((err) => {
-        console.error('Error initialize LIFF: ', err)
-      })
-      // TODO: get user from Firestore
-      firebase.userRegister.get().then(snapshot => {
+    created() {
+      userRegister.get().then(snapshot => {
         snapshot.forEach(doc => {
           if (doc.data()){
             console.log(doc.id)

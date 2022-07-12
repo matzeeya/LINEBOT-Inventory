@@ -12,6 +12,7 @@
     "core-js": "^3.6.5",
     "firebase": "^9.5.0",
     "vue": "^2.6.11",
+    "vue-devtools": "^5.1.4",
     "vue-router": "^3.5.3"
   },
   "devDependencies": {
