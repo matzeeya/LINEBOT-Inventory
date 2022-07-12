@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <h3>Hello firestore!!</h3>
+    <router-view />
   </div>
 </template>
 
 <script>
-import firebase from "./../backend/database/firebase"
+/*import firebase from "./../backend/database/firebase"
 const userRegister = firebase.collection("userRegister")
 
 export default {
@@ -21,7 +20,7 @@ export default {
       })
     })
   }
-}
+}*/
 </script>
 
 <style>
