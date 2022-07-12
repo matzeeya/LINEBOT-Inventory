@@ -27,7 +27,8 @@
         if (liff.isLoggedIn()) {
           QRCodeReader()
         }else{
-          liff.login({ redirectUri: LiffURL("/bot/functions/src/viewData.html") })
+          liff.login({ redirectUri: LiffURL("/") })
+          //liff.login({ redirectUri: LiffURL("/bot/functions/src/viewData.html") })
         }
       }
       main()
