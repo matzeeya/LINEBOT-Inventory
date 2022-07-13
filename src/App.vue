@@ -3,29 +3,15 @@
     <router-view />
   </div>
 </template>
-
-<script>
-/*import firebase from "./../backend/database/firebase"
-const userRegister = firebase.collection("userRegister")
-
-export default {
-  name: 'App',
-  created() {
-    userRegister.get().then(snapshot => {
-      snapshot.forEach(doc => {
-        if (doc.data()){
-          console.log(doc.id)
-          console.log(doc.data().account)
-        }
-      })
-    })
-  }
-}*/
-</script>
-
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@400&display=swap');
+
+html, body {
+  font-family: 'Noto Serif Thai', serif;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Noto Serif Thai', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
