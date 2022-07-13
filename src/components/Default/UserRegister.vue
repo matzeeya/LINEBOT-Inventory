@@ -8,17 +8,18 @@
         <div class="columns is-desktop">
           <div class="column">
             <b-field label="อีเมล"
-              type="is-danger"
+              type="is-info"
               message="กรุณาใช้ NU Mail เพื่อง่ายต่อการตรวจสอบ">
               <b-input type="email" 
                 id="email" 
-                maxlength="30">
+                maxlength="30"
+                placeholder="email@nu.ac.th">
               </b-input>
             </b-field>
           </div>
           <div class="column">
             <b-field label="หมายเลขบัตรประจำตัวประชาชน"
-              type="is-danger"
+              type="is-info"
               message="เพื่อใช้สำหรับการ Login เข้าสู่ระบบในครั้งแรก">
               <b-input id="pid"
                 maxlength="13">
@@ -39,6 +40,14 @@
             </b-field>
           </div>
           <ListUserType />
+          <div class="column">
+            <b-field label="เบอร์ติดต่อ">
+              <b-input id="phone"
+              maxlength="11"
+              placeholder="000-0000000">
+              </b-input>
+            </b-field>
+          </div>
           <div class="column">
             <UploadPhoto />
           </div>

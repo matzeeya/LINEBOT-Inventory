@@ -1,6 +1,6 @@
 <template>
 <b-field label="อัพโหลดรูปเพื่อยืนยันตัวตน"
-  type="is-danger"
+  type="is-info"
   message="กรุณาถ่ายบัตรนักศึกษาหรือบัตรพนักงานเพื่อยืนยันตัวตน">
   <b-field class="file is-primary" :class="{'has-name': !!file}">
     <b-upload v-model="file" class="file-label" rounded>
