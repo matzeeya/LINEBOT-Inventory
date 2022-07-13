@@ -8,8 +8,8 @@
         <div class="columns is-desktop">
           <div class="column">
             <b-field label="อีเมล"
-              type="is-info"
-              message="กรุณาใช้ NU Mail เพื่อง่ายต่อการตรวจสอบ">
+              :type=isEmailType
+              :message=isEmailMsg>
               <b-input type="email" 
                 id="email" 
                 maxlength="30"
@@ -19,8 +19,8 @@
           </div>
           <div class="column">
             <b-field label="หมายเลขบัตรประจำตัวประชาชน"
-              type="is-info"
-              message="เพื่อใช้สำหรับการ Login เข้าสู่ระบบในครั้งแรก">
+              :type=isPidType
+              :message=isPidMsg>
               <b-input id="pid"
                 maxlength="13">
               </b-input>
@@ -67,6 +67,21 @@
   import ListUserType from '../../modules/ListUserType.vue'
   import UploadPhoto from '../../modules/UploadPhoto.vue'
   export default {
+    name:'App',
+    data(){
+      return {
+        isEmailType: 'is-info',
+        isEmailMsg: 'กรุณาใช้ NU Mail เพื่อง่ายต่อการตรวจสอบ',
+        isPidType: 'is-info',
+        isPidMsg: 'เพื่อใช้สำหรับการ Login เข้าสู่ระบบในครั้งแรก',
+      }
+    },
+    /*computed:{
+      chkEmail(){
+        this.isEmailType = 'is-danger'
+        this.isEmailMsg = 'กรุณากรอกข้อมูลให้ถูกต้อง'
+      }
+    },*/
     components: {
       ListPrename,
       ListUserType,
