@@ -104,6 +104,7 @@
   import firestore, { storage } from "../../../backend/database/firebase"
   import ListPrename from '../../components/ListPrename.vue'
   import ListUserType from '../../components/ListUserType.vue'
+
   export default {
     name:'App',
     components: {
@@ -163,7 +164,7 @@
         }
       },
       file(){
-        console.log("file: ",this.file)
+        //console.log("file: ",this.file)
       }
     },
     methods:{
@@ -193,10 +194,10 @@
       },
       async submitHandler(){
         if(this.file && this.file.name){
-          //console.log(this.file.name);
           const userPicRef = storage.child("photos/"+this.pid);
-          const getFilename = this.file.name;
-          const filename = Date.now()+"_"+getFilename.substring(0,4)+".jpg";
+          //const getFilename = this.file.name;
+          const random = Math.random();
+          const filename = Date.now()+"_"+random.toString().substring(2,6)+".jpg";
           const targetRef = userPicRef.child(filename);
           await targetRef.put(this.file).then(response => {
             response.ref.getDownloadURL().then(photoURL =>{
