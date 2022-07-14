@@ -91,7 +91,8 @@
               @click="clearData">ยกเลิก</button>
             <b-field 
               v-model="lblResult"
-              v-bind:label="isSuccess">
+              v-bind:type="isSuccessType"
+              v-bind:label="isSuccessMsg">
             </b-field>
           </div>
         </div>
@@ -123,7 +124,8 @@
         link:null,
         verify:null,
         lblResult:null,
-        isSuccess:null,
+        isSuccessType:null,
+        isSuccessMsg:null,
         isEmailType: "is-info",
         isEmailMsg: "กรุณาใช้ NU Mail เพื่อง่ายต่อการตรวจสอบ",
         isPidType: "is-info",
@@ -177,7 +179,8 @@
         addUser.add(obj)
           .then(()=>{
             console.log("ลงทะเบียนสำเร็จ")
-            this.isSuccess = "ลงทะเบียนสำเร็จ"
+            this.isSuccessType = "is-success"
+            this.isSuccessMsg = "ลงทะเบียนสำเร็จ"
           })
           .catch(err => console.log(err));
       },
@@ -189,7 +192,8 @@
         this.phone = null;
       },
       async submitHandler(){
-        if(this.file){
+        if(this.file && this.file.name){
+          //console.log(this.file.name);
           const userPicRef = storage.child("photos/"+this.pid);
           const getFilename = this.file.name;
           const filename = Date.now()+"_"+getFilename.substring(0,4)+".jpg";
@@ -216,7 +220,8 @@
           });
         }else{
           console.log("no file Upload");
-          this.verify = "false";
+          this.isSuccessType = "is-danger"
+          this.isSuccessMsg = "กรุณาอัพโหลดรูปเพื่อยืนยันตัวตน"
         }
       }
     }
