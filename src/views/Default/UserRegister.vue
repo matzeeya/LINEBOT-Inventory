@@ -49,11 +49,13 @@
           </div>
           <ListUserType />
           <div class="column">
-            <b-field label="เบอร์ติดต่อ">
+            <b-field label="เบอร์ติดต่อ"
+              v-bind:type="isPhoneType"
+              v-bind:message="isPhoneMsg">
               <b-input id="phone"
               name="phone"
-              maxlength="11"
-              placeholder="000-0000000">
+              v-model="phone"
+              maxlength="10">
               </b-input>
             </b-field>
           </div>
@@ -86,10 +88,13 @@
       return {
         email:null,
         pid:null,
+        phone:null,
         isEmailType: "is-info",
         isEmailMsg: "กรุณาใช้ NU Mail เพื่อง่ายต่อการตรวจสอบ",
         isPidType: "is-info",
-        isPidMsg: "เพื่อใช้สำหรับการ Login เข้าสู่ระบบในครั้งแรก"
+        isPidMsg: "เพื่อใช้สำหรับการ Login เข้าสู่ระบบในครั้งแรก",
+        isPhoneType: null,
+        isPhoneMsg:null
       }
     },
     watch:{
@@ -110,6 +115,15 @@
         }else{
           this.isPidType = "is-danger"
           this.isPidMsg = "กรอกข้อมูลไม่ถูกต้อง"
+        }
+      },
+      phone(){
+        if(this.phone < '0' || this.phone >'9'){
+          this.isPhoneType = "is-danger"
+          this.isPhoneMsg = "กรุณากรอกเฉพาะตัวเลข"
+        }else{
+          this.isPhoneType =  null
+          this.isPhoneMsg = null
         }
       }
     }

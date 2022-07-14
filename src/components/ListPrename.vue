@@ -1,10 +1,10 @@
 <template>
   <b-field label="คำนำหน้า">
     <div class="select">
-      <select style="width:280px">
-        <option id="prename"
-          name="prename"
-          v-for="prename in pnames" 
+      <select id="prename"
+      name="prename"
+      style="width:280px">
+        <option v-for="prename in pnames" 
           v-bind:key="prename">
             {{prename}}
           </option>
