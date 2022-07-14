@@ -5,75 +5,86 @@
         ลงทะเบียนผู้ใช้ใหม่
       </p> 
       <div class="panel-block">
-        <div class="columns is-desktop">
-          <div class="column">
-            <b-field label="อีเมล"
-              v-bind:type="isEmailType"
-              v-bind:message="isEmailMsg">
-              <b-input type="email" 
-                id="email" 
-                name="email"
-                v-model="email"
-                maxlength="30"
-                placeholder="email@nu.ac.th">
-              </b-input>
-            </b-field>
+        <form @submit.prevent="submitHandler">
+          <div class="columns is-desktop">
+            <div class="column">
+              <b-field label="อีเมล"
+                v-bind:type="isEmailType"
+                v-bind:message="isEmailMsg">
+                <b-input type="email" 
+                  id="email" 
+                  name="email"
+                  v-model="email"
+                  maxlength="30"
+                  placeholder="email@nu.ac.th">
+                </b-input>
+              </b-field>
+            </div>
+            <div class="column">
+              <b-field label="หมายเลขบัตรประจำตัวประชาชน"
+                v-bind:type="isPidType"
+                v-bind:message="isPidMsg">
+                <b-input id="pid"
+                  name="pid"
+                  v-model="pid"
+                  maxlength="13">
+                </b-input>
+              </b-field>
+            </div>
+            <div class="column">
+              <ListPrename :getPrename="getPname"/>
+            </div>
+            <div class="column">
+              <b-field label="ชื่อ">
+                <b-input id="fname"
+                  name="fname"
+                  v-model="fname">
+                </b-input>
+              </b-field>
+            </div>
+            <div class="column">
+              <b-field label="นามสกุล">
+                <b-input id="lname"
+                  name="lname"
+                  v-model="lname">
+                </b-input>
+              </b-field>
+            </div>
+            <ListUserType />
+            <div class="column">
+              <b-field label="เบอร์ติดต่อ"
+                v-bind:type="isPhoneType"
+                v-bind:message="isPhoneMsg">
+                <b-input id="phone"
+                name="phone"
+                v-model="phone"
+                maxlength="10">
+                </b-input>
+              </b-field>
+            </div>
+            <div class="column">
+              <UploadPhoto />
+            </div>
           </div>
-          <div class="column">
-            <b-field label="หมายเลขบัตรประจำตัวประชาชน"
-              v-bind:type="isPidType"
-              v-bind:message="isPidMsg">
-              <b-input id="pid"
-                name="pid"
-                v-model="pid"
-                maxlength="13">
-              </b-input>
-            </b-field>
-          </div>
-          <div class="column">
-            <ListPrename />
-          </div>
-          <div class="column">
-            <b-field label="ชื่อ">
-              <b-input id="fname"
-                name="fname">
-              </b-input>
-            </b-field>
-          </div>
-          <div class="column">
-            <b-field label="นามสกุล">
-              <b-input id="lname"
-                name="lname">
-              </b-input>
-            </b-field>
-          </div>
-          <ListUserType />
-          <div class="column">
-            <b-field label="เบอร์ติดต่อ"
-              v-bind:type="isPhoneType"
-              v-bind:message="isPhoneMsg">
-              <b-input id="phone"
-              name="phone"
-              v-model="phone"
-              maxlength="10">
-              </b-input>
-            </b-field>
-          </div>
-          <div class="column">
-            <UploadPhoto />
-          </div>
-        </div>
+        </form>
       </div>
       <div class="panel-block">
         <div class="buttons">
-          <button class="button is-primary">ตกลง</button>
-          <button class="button is-danger">ยกเลิก</button>
+          <button class="button is-primary"
+            type="submit">ตกลง</button>
+          <button class="button is-danger"
+            @click="clearData">ยกเลิก</button>
+          <b-field 
+            v-model="lblResult"
+            v-bind:label="isSuccess">
+          </b-field>
         </div>
       </div>
     </article>
   </div>
 </template>
 <script>
+  import firestore from "../../../backend/database/firebase"
   import ListPrename from '../../components/ListPrename.vue'
   import ListUserType from '../../components/ListUserType.vue'
   import UploadPhoto from '../../components/UploadPhoto.vue'
@@ -89,6 +100,11 @@
         email:null,
         pid:null,
         phone:null,
+        pname:null,
+        fname:null,
+        lname:null,
+        lblResult:null,
+        isSuccess:null,
         isEmailType: "is-info",
         isEmailMsg: "กรุณาใช้ NU Mail เพื่อง่ายต่อการตรวจสอบ",
         isPidType: "is-info",
@@ -125,6 +141,45 @@
           this.isPhoneType =  null
           this.isPhoneMsg = null
         }
+      }
+    },
+    methods:{
+      getPname(pName){
+        this.pname = pName
+        //console.log("getP:"+pName)
+      },
+      addUserRegister(obj){
+        const addUser = firestore.collection("userRegister");
+        addUser.add(obj)
+          .then(()=>{
+            this.isSuccess = "ลงทะเบียนสำเร็จ"
+          })
+          .catch(err => console.log(err));
+      },
+      clearData(){
+        this.email = null;
+        this.fname = null;
+        this.lname = null;
+        this.pid = null;
+        this.phone = null;
+      },
+      submitHandler(){
+        const obj = {
+          email:this.email,
+          pid:this.pid,
+          pname:this.pname,
+          fname:this.fname,
+          lname:this.lname,
+          usertype:null,
+          stuid:null,
+          phone:this.phone,
+          userid:null,
+          verify:"true",
+          approve:"false",
+          comment:null
+        };
+        this.clearData();
+        this.addUserRegister(obj);
       }
     }
   }

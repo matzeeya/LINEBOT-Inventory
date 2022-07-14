@@ -18,7 +18,7 @@
 </template>
 <script>
 export default {
-  name: 'App',
+  name: 'Uploadfile',
   data() {
     return {
       file: {}

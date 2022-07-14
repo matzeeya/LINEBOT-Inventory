@@ -28,7 +28,7 @@
 <script>
 import firestore from "../../backend/database/firebase"
 export default {
-  name: 'App',
+  name: 'Usertype',
   data () {
     return {
       utypes: [],

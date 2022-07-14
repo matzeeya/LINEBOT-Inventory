@@ -2,23 +2,30 @@
   <b-field label="คำนำหน้า">
     <div class="select">
       <select id="prename"
-      name="prename"
-      style="width:280px">
-        <option v-for="prename in pnames" 
-          v-bind:key="prename">
-            {{prename}}
-          </option>
+        name="prename"
+        v-model="prename"
+        @change="getPrename(prename)"
+        style="width:280px">
+          <option v-for="prename in pnames" 
+            v-bind:key="prename">
+              {{prename}}
+            </option>
       </select>
     </div>
+    <span>{{pName}}</span>
   </b-field>
 </template>
 <script>
 import firestore from "../../backend/database/firebase"
 export default {
-  name: 'App',
+  name: 'Prename',
+  props:{
+    getPrename:Function
+  },
   data () {
     return {
-      pnames: []
+      pnames: [],
+      prename:null
     }
   },
   created() {
@@ -30,6 +37,11 @@ export default {
         }
       })
     })
-  }
+  },
+  /*watch:{
+    prename(){
+      console.log("isPrename: "+this.prename)
+    }
+  }*/
 }
 </script>
