@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from './views/CheckLogin.vue'
-import Regiter from './components/Default/UserRegister.vue'
-import AsyncAwait from './views/AsyncAwait.vue'
+import Home from './views/Home.vue'
+import Regiter from './views/Default/UserRegister.vue'
 
 Vue.use(VueRouter)
 
@@ -15,11 +14,6 @@ const routes = [{
   path: '/register',
   name: 'Regiter',
   component: Regiter
-},
-{
-  path: '/async',
-  name: 'AsyncAwait',
-  component: AsyncAwait
 }
 ]
 

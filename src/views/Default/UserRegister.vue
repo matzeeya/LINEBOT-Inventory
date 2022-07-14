@@ -63,9 +63,9 @@
   </div>
 </template>
 <script>
-  import ListPrename from '../../modules/ListPrename.vue'
-  import ListUserType from '../../modules/ListUserType.vue'
-  import UploadPhoto from '../../modules/UploadPhoto.vue'
+  import ListPrename from '../../components/ListPrename.vue'
+  import ListUserType from '../../components/ListUserType.vue'
+  import UploadPhoto from '../../components/UploadPhoto.vue'
   export default {
     name:'App',
     data(){
