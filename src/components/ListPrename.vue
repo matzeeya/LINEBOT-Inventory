@@ -12,7 +12,6 @@
             </option>
       </select>
     </div>
-    <span>{{pName}}</span>
   </b-field>
 </template>
 <script>

@@ -1,11 +1,11 @@
 <template>
   <div class="container is-fluid">
-    <article class="panel is-primary">
-      <p class="panel-heading">
-        ลงทะเบียนผู้ใช้ใหม่
-      </p> 
-      <div class="panel-block">
-        <form @submit.prevent="submitHandler">
+    <form @submit.prevent="submitHandler">
+      <article class="panel is-primary">
+        <p class="panel-heading">
+          ลงทะเบียนผู้ใช้ใหม่
+        </p> 
+        <div class="panel-block">
           <div class="columns is-desktop">
             <div class="column">
               <b-field label="อีเมล"
@@ -50,7 +50,7 @@
                 </b-input>
               </b-field>
             </div>
-            <ListUserType />
+            <ListUserType :getUsertype="getUtype"/>
             <div class="column">
               <b-field label="เบอร์ติดต่อ"
                 v-bind:type="isPhoneType"
@@ -66,21 +66,21 @@
               <UploadPhoto />
             </div>
           </div>
-        </form>
-      </div>
-      <div class="panel-block">
-        <div class="buttons">
-          <button class="button is-primary"
-            type="submit">ตกลง</button>
-          <button class="button is-danger"
-            @click="clearData">ยกเลิก</button>
-          <b-field 
-            v-model="lblResult"
-            v-bind:label="isSuccess">
-          </b-field>
         </div>
-      </div>
-    </article>
+        <div class="panel-block">
+          <div class="buttons">
+            <button class="button is-primary"
+              type="submit">ตกลง</button>
+            <button class="button is-danger"
+              @click="clearData">ยกเลิก</button>
+            <b-field 
+              v-model="lblResult"
+              v-bind:label="isSuccess">
+            </b-field>
+          </div>
+        </div>
+      </article>
+    </form>
   </div>
 </template>
 <script>
@@ -103,6 +103,8 @@
         pname:null,
         fname:null,
         lname:null,
+        usertype:null,
+        stuid:null,
         lblResult:null,
         isSuccess:null,
         isEmailType: "is-info",
@@ -122,7 +124,6 @@
           this.isEmailType = "is-danger"
           this.isEmailMsg = "กรุณาใส่ @ ลงในอีเมล"
         }
-        
       },
       pid(){
         if(this.pid.length < 13){
@@ -148,10 +149,16 @@
         this.pname = pName
         //console.log("getP:"+pName)
       },
+      getUtype(utype,sid){
+        this.usertype = utype
+        this.stuid = sid
+        //console.log("get type: "+utype+",id: "+sid)
+      },
       addUserRegister(obj){
         const addUser = firestore.collection("userRegister");
         addUser.add(obj)
           .then(()=>{
+            console.log("ลงทะเบียนสำเร็จ")
             this.isSuccess = "ลงทะเบียนสำเร็จ"
           })
           .catch(err => console.log(err));
@@ -170,16 +177,16 @@
           pname:this.pname,
           fname:this.fname,
           lname:this.lname,
-          usertype:null,
-          stuid:null,
+          usertype:this.usertype,
+          stuid:this.stuid,
           phone:this.phone,
           userid:null,
           verify:"true",
           approve:"false",
           comment:null
         };
-        this.clearData();
         this.addUserRegister(obj);
+        this.clearData();
       }
     }
   }

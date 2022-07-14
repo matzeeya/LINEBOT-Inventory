@@ -4,8 +4,9 @@
         <div class="select">
           <select id="userType"
               name="userType"
-              style="width:280px" 
-              @change="setSelected($event)">
+              v-model="userType"
+              @change="setSelected($event)"
+              style="width:280px">
             <option v-for="utype in utypes" 
               v-bind:key="utype">
                 {{utype}}
@@ -29,9 +30,13 @@
 import firestore from "../../backend/database/firebase"
 export default {
   name: 'Usertype',
+  props:{
+    getUsertype:Function
+  },
   data () {
     return {
       utypes: [],
+      userType:null,
       isType: false,
       stuid:null,
       isStuType: null,
@@ -53,8 +58,17 @@ export default {
       let uType = event.target.value
       if(uType === "นักศึกษา"){
         this.isType = true
+        if(this.stuid !== null){
+          this.getUsertype(uType,this.stuid)
+        }else{
+          console.log("ยังไม่ได้กรอกรหัสนักศึกษา")
+          this.isStuType = "is-danger"
+          this.isStuMsg = "กรุณากรอกรหัสนักศึกษา"
+        }
       }else{
+        this.stuid = null;
         this.isType = false
+        this.getUsertype(uType,null)
       }
     }
   },
@@ -66,6 +80,9 @@ export default {
       }else{
         this.isStuType =  null
         this.isStuMsg = null
+        if(this.stuid.length == 8){
+          this.getUsertype(this.userType,this.stuid)
+        }
       }
     }
   }
