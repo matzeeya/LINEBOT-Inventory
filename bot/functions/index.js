@@ -10,12 +10,12 @@ const axios = require('axios');
 var config = require('./config.js');
 const region = 'asia-northeast1';
 //const rp = require('request-promise-native');
-var photo = require('./myModules/uploadPhoto');
-var users = require('./myModules/userResgister');
-var asset = require('./myModules/checkedInventory');
-var view = require('./myModules/viewInventory');
-var borrow = require('./myModules/borrow');
-var register = require('./myModules/confirmRegister');
+//var photo = require('./components/uploadPhoto');
+var verify = require('./components/VerifyUser');
+var asset = require('./components/checkedInventory');
+var search = require('./components/SearchInventory');
+var borrow = require('./components/borrow');
+var register = require('./components/confirmRegister');
 
 const LINE_MESSAGING_API = "https://api.line.me/v2/bot";
 const LINE_HEADER = {
@@ -31,7 +31,8 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
     //console.log("type: "+ event.message.type);
     if(event.message.type !== "text"){
       if(event.message.type === "image"){
-        photo.uploadPhoto(req, res); // เรียก function uploadPhoto
+        //photo.uploadPhoto(req, res); // เรียก function uploadPhoto
+        await reply(event.replyToken, { type: "text", text: "รูปสวยดีนะคะ"});
       }else{
         await reply(event.replyToken, { type: "text", text: "สวัสดีค่ะ"});
       }
@@ -39,12 +40,12 @@ exports.fulfillment = functions.region(region).https.onRequest(async(req, res) =
       //console.log("text: "+ event.message.text);
       var msg = event.message.text.split(": ");
       if(msg[0] === "ตรวจสอบผู้ใช้งาน"){
-        users.userVertify(req,res);
+        verify.userVertify(req,res);
       }else if(msg[0] === "หมายเลขครุภัณฑ์" && msg[1] !== "null"){
         asset.getdata(req, res, msg[1]);
         //await reply(event.replyToken, { type: "text", text: "หมายเลขครุภัณฑ์คือ " + msg[1]});
       }else if(msg[0] === "ข้อมูลครุภัณฑ์" && msg[1] !== "null"){
-        view.getdata(req, res, msg[1]);
+        search.getdata(req, res, msg[1]);
       }else if(msg[0] === "ยืมครุภัณฑ์" && msg[1] !== "null"){
         borrow.getdata(req, res, msg[1]);
       }else if(msg[0] === "ลงทะเบียน"){
