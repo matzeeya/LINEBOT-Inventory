@@ -197,7 +197,7 @@
           const userPicRef = storage.child("photos/"+this.pid);
           //const getFilename = this.file.name;
           const random = Math.random();
-          const filename = Date.now()+"_"+random.toString().substring(2,6)+".jpg";
+          const filename = Date.now()+"_"+random.toString().substring(2,8)+".jpg";
           const targetRef = userPicRef.child(filename);
           await targetRef.put(this.file).then(response => {
             response.ref.getDownloadURL().then(photoURL =>{
