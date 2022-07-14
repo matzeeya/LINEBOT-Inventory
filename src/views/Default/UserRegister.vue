@@ -63,7 +63,23 @@
               </b-field>
             </div>
             <div class="column">
-              <UploadPhoto />
+              <b-field label="อัพโหลดรูปเพื่อยืนยันตัวตน"
+                type="is-info"
+                message="กรุณาถ่ายบัตรนักศึกษาหรือบัตรพนักงานเพื่อยืนยันตัวตน">
+                <b-field class="file is-primary" :class="{'has-name': !!file}">
+                  <b-upload id="file" 
+                    name="file"
+                    v-model="file" 
+                    accept="image/jpeg"
+                    class="file-label"
+                    rounded>
+                    <span class="file-cta">
+                      <b-icon class="file-icon" icon="upload"></b-icon>
+                      <span class="file-label">{{ file.name || "Click to upload"}}</span>
+                    </span>
+                  </b-upload>
+                </b-field>
+              </b-field>
             </div>
           </div>
         </div>
@@ -84,16 +100,14 @@
   </div>
 </template>
 <script>
-  import firestore from "../../../backend/database/firebase"
+  import firestore, { storage } from "../../../backend/database/firebase"
   import ListPrename from '../../components/ListPrename.vue'
   import ListUserType from '../../components/ListUserType.vue'
-  import UploadPhoto from '../../components/UploadPhoto.vue'
   export default {
     name:'App',
     components: {
       ListPrename,
-      ListUserType,
-      UploadPhoto
+      ListUserType
     },
     data(){
       return {
@@ -105,6 +119,9 @@
         lname:null,
         usertype:null,
         stuid:null,
+        file: {},
+        link:null,
+        verify:null,
         lblResult:null,
         isSuccess:null,
         isEmailType: "is-info",
@@ -142,17 +159,18 @@
           this.isPhoneType =  null
           this.isPhoneMsg = null
         }
+      },
+      file(){
+        console.log("file: ",this.file)
       }
     },
     methods:{
       getPname(pName){
         this.pname = pName
-        //console.log("getP:"+pName)
       },
       getUtype(utype,sid){
         this.usertype = utype
         this.stuid = sid
-        //console.log("get type: "+utype+",id: "+sid)
       },
       addUserRegister(obj){
         const addUser = firestore.collection("userRegister");
@@ -170,23 +188,36 @@
         this.pid = null;
         this.phone = null;
       },
-      submitHandler(){
-        const obj = {
-          email:this.email,
-          pid:this.pid,
-          pname:this.pname,
-          fname:this.fname,
-          lname:this.lname,
-          usertype:this.usertype,
-          stuid:this.stuid,
-          phone:this.phone,
-          userid:null,
-          verify:"true",
-          approve:"false",
-          comment:null
-        };
-        this.addUserRegister(obj);
-        this.clearData();
+      async submitHandler(){
+        if(this.file){
+          const userPicRef = storage.child("photos/"+this.pid);
+          const getFilename = this.file.name;
+          const filename = Date.now()+"_"+getFilename.substring(0,4)+".jpg";
+          const targetRef = userPicRef.child(filename);
+          await targetRef.put(this.file).then(response => {
+            response.ref.getDownloadURL().then(photoURL =>{
+              const obj = {
+                email:this.email,
+                pid:this.pid,
+                pname:this.pname,
+                fname:this.fname,
+                lname:this.lname,
+                usertype:this.usertype,
+                stuid:this.stuid,
+                phone:this.phone,
+                userid:null,
+                link:photoURL,
+                verify:"true",
+                approve:"false",
+                comment:null
+              };
+              this.addUserRegister(obj);
+            });
+          });
+        }else{
+          console.log("no file Upload");
+          this.verify = "false";
+        }
       }
     }
   }
