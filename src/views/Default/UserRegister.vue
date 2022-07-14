@@ -8,10 +8,12 @@
         <div class="columns is-desktop">
           <div class="column">
             <b-field label="อีเมล"
-              :type=isEmailType
-              :message=isEmailMsg>
+              v-bind:type="isEmailType"
+              v-bind:message="isEmailMsg">
               <b-input type="email" 
                 id="email" 
+                name="email"
+                v-model="email"
                 maxlength="30"
                 placeholder="email@nu.ac.th">
               </b-input>
@@ -19,9 +21,11 @@
           </div>
           <div class="column">
             <b-field label="หมายเลขบัตรประจำตัวประชาชน"
-              :type=isPidType
-              :message=isPidMsg>
+              v-bind:type="isPidType"
+              v-bind:message="isPidMsg">
               <b-input id="pid"
+                name="pid"
+                v-model="pid"
                 maxlength="13">
               </b-input>
             </b-field>
@@ -31,18 +35,23 @@
           </div>
           <div class="column">
             <b-field label="ชื่อ">
-              <b-input id="fname"></b-input>
+              <b-input id="fname"
+                name="fname">
+              </b-input>
             </b-field>
           </div>
           <div class="column">
             <b-field label="นามสกุล">
-              <b-input id="lname"></b-input>
+              <b-input id="lname"
+                name="lname">
+              </b-input>
             </b-field>
           </div>
           <ListUserType />
           <div class="column">
             <b-field label="เบอร์ติดต่อ">
               <b-input id="phone"
+              name="phone"
               maxlength="11"
               placeholder="000-0000000">
               </b-input>
@@ -68,24 +77,41 @@
   import UploadPhoto from '../../components/UploadPhoto.vue'
   export default {
     name:'App',
-    data(){
-      return {
-        isEmailType: 'is-info',
-        isEmailMsg: 'กรุณาใช้ NU Mail เพื่อง่ายต่อการตรวจสอบ',
-        isPidType: 'is-info',
-        isPidMsg: 'เพื่อใช้สำหรับการ Login เข้าสู่ระบบในครั้งแรก',
-      }
-    },
-    /*computed:{
-      chkEmail(){
-        this.isEmailType = 'is-danger'
-        this.isEmailMsg = 'กรุณากรอกข้อมูลให้ถูกต้อง'
-      }
-    },*/
     components: {
       ListPrename,
       ListUserType,
       UploadPhoto
+    },
+    data(){
+      return {
+        email:null,
+        pid:null,
+        isEmailType: "is-info",
+        isEmailMsg: "กรุณาใช้ NU Mail เพื่อง่ายต่อการตรวจสอบ",
+        isPidType: "is-info",
+        isPidMsg: "เพื่อใช้สำหรับการ Login เข้าสู่ระบบในครั้งแรก"
+      }
+    },
+    watch:{
+      email(){
+        if(!this.email){
+          this.isEmailType = "is-info"
+          this.isEmailMsg = "กรุณาใช้ NU Mail เพื่อง่ายต่อการตรวจสอบ"
+        }else{
+          this.isEmailType = "is-danger"
+          this.isEmailMsg = "กรุณาใส่ @ ลงในอีเมล"
+        }
+        
+      },
+      pid(){
+        if(this.pid.length < 13){
+          this.isPidType = "is-info"
+          this.isPidMsg = "เพื่อใช้สำหรับการ Login เข้าสู่ระบบในครั้งแรก"
+        }else{
+          this.isPidType = "is-danger"
+          this.isPidMsg = "กรอกข้อมูลไม่ถูกต้อง"
+        }
+      }
     }
   }
 </script>
